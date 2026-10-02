@@ -1,0 +1,663 @@
+
+<!doctype html>
+<!-- Informa ao navegador que o documento utiliza HTML5. -->
+<html lang="pt-BR">
+  <!-- Define o idioma principal da página como português brasileiro. -->
+
+  <head>
+    <!-- Define a codificação de caracteres para aceitar acentos e símbolos. -->
+    <meta charset="UTF-8" />
+
+    <!-- Faz a página se adaptar à largura da tela do dispositivo. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Descrição da página, usada por mecanismos de busca e outros serviços. -->
+    <meta
+      name="description"
+      content="Jogo da forca com categorias, níveis de dificuldade e palavras personalizadas."
+    />
+
+    <!-- Define a cor do navegador em dispositivos compatíveis. -->
+    <meta name="theme-color" content="#3f2b22" />
+
+    <!-- Título exibido na aba do navegador. -->
+    <title>Forca Atelier</title>
+
+    <!-- Importa o arquivo CSS responsável pela aparência da página. -->
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Importa o JavaScript como módulo, permitindo usar recursos modernos. -->
+    <script type="module" src="./script.js"></script>
+  </head>
+
+  <body>
+    <!-- Link de acessibilidade que permite pular diretamente para o conteúdo principal. -->
+    <a class="skip-link" href="#main">Ir para o conteúdo</a>
+
+    <!-- Elementos decorativos do fundo, ignorados por leitores de tela. -->
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <!-- Cabeçalho com a identidade visual e os botões principais. -->
+    <header class="site-header">
+
+      <!-- Logo e nome do jogo. -->
+      <a class="brand" href="#" aria-label="Forca Atelier — início">
+
+        <!-- Ícone da marca, desenhado com SVG. -->
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <!-- Desenha a estrutura da forca e a figura. -->
+            <path d="M10 33V7h16M18 7v5M7 33h11" />
+            <circle cx="24" cy="17" r="4" />
+            <path d="M24 21v7m-5-3 5-3 5 3m-8 8 3-5 3 5" />
+          </svg>
+        </span>
+
+        <!-- Nome e subtítulo da marca. -->
+        <span>
+          <strong>Forca</strong>
+          <small>ATELIER</small>
+        </span>
+      </a>
+
+      <!-- Área dos botões do cabeçalho. -->
+      <div class="header-actions">
+
+        <!-- Botão que ativa ou desativa os sons do jogo. -->
+        <button
+          class="icon-button"
+          id="sound-toggle"
+          type="button"
+          aria-label="Desativar sons"
+          title="Sons"
+        >
+          <!-- Ícone exibido quando o som está ativado. -->
+          <svg class="sound-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Zm4.5 4.5a4 4 0 0 1 0 5m2.5-7.5a7.5 7.5 0 0 1 0 10" />
+          </svg>
+
+          <!-- Ícone exibido quando o som está desativado. -->
+          <svg class="sound-off" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Zm5 5 5 5m0-5-5 5" />
+          </svg>
+        </button>
+
+        <!-- Abre a janela para criar uma categoria personalizada. -->
+        <button
+          class="button button-secondary button-small"
+          id="open-manager"
+          type="button"
+        >
+          <!-- Ícone de adição. -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          Nova categoria
+        </button>
+      </div>
+    </header>
+
+    <!-- Conteúdo principal da aplicação. -->
+    <main id="main">
+
+      <!-- Tela inicial, onde o jogador configura a partida. -->
+      <section id="setup-screen" class="screen">
+
+        <!-- Área de apresentação e estatísticas. -->
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span> Desafie seu vocabulário</p>
+
+            <!-- Título principal. -->
+            <h1>Palavra por palavra,<br /><em>vença o desafio.</em></h1>
+
+            <!-- Texto de apresentação do jogo. -->
+            <p class="hero-description">
+              Escolha um tema, ajuste a dificuldade e descubra a palavra antes que as tentativas acabem.
+            </p>
+          </div>
+
+          <!-- Cartão com o histórico de partidas. -->
+          <div class="stats-card" aria-label="Suas estatísticas">
+            <p class="stats-title">Seu histórico</p>
+
+            <div class="stats-grid">
+              <!-- Número total de partidas. O JavaScript atualiza este elemento. -->
+              <div>
+                <strong id="stat-games">0</strong>
+                <span>partidas</span>
+              </div>
+
+              <!-- Percentual de vitórias. -->
+              <div>
+                <strong id="stat-wins">0%</strong>
+                <span>vitórias</span>
+              </div>
+
+              <!-- Melhor pontuação registrada. -->
+              <div>
+                <strong id="stat-best">0</strong>
+                <span>melhor pontuação</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Área de configuração, com categorias e opções da partida. -->
+        <div class="setup-layout">
+
+          <!-- Painel de seleção de categorias. -->
+          <section
+            class="panel category-panel"
+            aria-labelledby="category-title"
+          >
+            <div class="section-heading">
+              <div>
+                <!-- Indica a primeira etapa da configuração. -->
+                <span class="step-number">01</span>
+
+                <div>
+                  <p class="overline">Primeiro passo</p>
+                  <h2 id="category-title">Escolha uma categoria</h2>
+                </div>
+              </div>
+
+              <!-- Quantidade de categorias disponíveis. -->
+              <span class="category-count" id="category-count">20 temas</span>
+            </div>
+
+            <!-- Campo para pesquisar categorias pelo nome. -->
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m16 16 4 4" />
+              </svg>
+
+              <input
+                id="category-search"
+                type="search"
+                placeholder="Buscar categoria..."
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- O JavaScript insere os cartões das categorias neste espaço. -->
+            <div id="category-grid" class="category-grid"></div>
+          </section>
+
+          <!-- Coluna lateral com prévia das palavras e dificuldade. -->
+          <aside class="setup-sidebar">
+
+            <!-- Painel que mostra as palavras da categoria selecionada. -->
+            <section
+              class="panel word-preview"
+              aria-labelledby="word-preview-title"
+            >
+              <div class="preview-header">
+                <div>
+                  <p class="overline">Espiar o baralho</p>
+                  <h2 id="word-preview-title">Palavras do tema</h2>
+                </div>
+
+                <!-- Quantidade de palavras da categoria. -->
+                <span id="preview-total">20</span>
+              </div>
+
+              <!-- Campo para filtrar as palavras exibidas na prévia. -->
+              <label class="search-box compact">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="11" cy="11" r="6" />
+                  <path d="m16 16 4 4" />
+                </svg>
+
+                <input
+                  id="word-search"
+                  type="search"
+                  placeholder="Pesquisar palavras"
+                  autocomplete="off"
+                />
+              </label>
+
+              <!-- Lista preenchida dinamicamente com as palavras da categoria. -->
+              <div
+                id="word-list"
+                class="word-list"
+                aria-live="polite"
+              ></div>
+            </section>
+
+            <!-- Painel de seleção do nível de dificuldade. -->
+            <section
+              class="panel play-panel"
+              aria-labelledby="difficulty-title"
+            >
+              <div class="section-heading simple">
+                <span class="step-number">02</span>
+
+                <div>
+                  <p class="overline">Agora escolha</p>
+                  <h2 id="difficulty-title">Nível do desafio</h2>
+                </div>
+              </div>
+
+              <!-- Opções de dificuldade. O atributo data-level identifica cada nível. -->
+              <div class="difficulty-options" id="difficulty-options">
+
+                <!-- Nível fácil: permite dez erros. -->
+                <button
+                  class="difficulty"
+                  type="button"
+                  data-level="easy"
+                >
+                  <span class="difficulty-icon">10</span>
+                  <span>
+                    <strong>Fácil</strong>
+                    <small>10 erros</small>
+                  </span>
+                </button>
+
+                <!-- Nível médio: permite oito erros e começa selecionado. -->
+                <button
+                  class="difficulty active"
+                  type="button"
+                  data-level="medium"
+                >
+                  <span class="difficulty-icon">8</span>
+                  <span>
+                    <strong>Médio</strong>
+                    <small>8 erros</small>
+                  </span>
+                </button>
+
+                <!-- Nível difícil: permite seis erros. -->
+                <button
+                  class="difficulty"
+                  type="button"
+                  data-level="hard"
+                >
+                  <span class="difficulty-icon">6</span>
+                  <span>
+                    <strong>Difícil</strong>
+                    <small>6 erros</small>
+                  </span>
+                </button>
+              </div>
+
+              <!-- Botão que inicia a partida com as opções selecionadas. -->
+              <button
+                id="start-game"
+                class="button button-primary start-button"
+                type="button"
+              >
+                Começar desafio
+
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14m-5-5 5 5-5 5" />
+                </svg>
+              </button>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Tela da partida. O atributo hidden a mantém escondida inicialmente. -->
+      <section
+        id="game-screen"
+        class="screen game-screen"
+        hidden
+      >
+        <!-- Barra superior da partida. -->
+        <div class="game-topbar">
+
+          <!-- Botão para sair da partida e voltar às categorias. -->
+          <button class="back-button" id="leave-game" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m15 5-7 7 7 7" />
+            </svg>
+            Categorias
+          </button>
+
+          <!-- Identificação da categoria e da dificuldade escolhidas. -->
+          <div class="game-chips">
+            <span id="game-category" class="chip"></span>
+            <span id="game-difficulty" class="chip chip-outline"></span>
+          </div>
+
+          <!-- Reinicia a partida atual. -->
+          <button class="text-button" id="restart-game" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 11a8 8 0 1 0-2 5.3M20 5v6h-6" />
+            </svg>
+            Reiniciar
+          </button>
+        </div>
+
+        <!-- Área com a forca e o painel principal do jogo. -->
+        <div class="game-layout">
+
+          <!-- Painel visual da forca e das tentativas. -->
+          <aside class="panel gallows-card">
+            <div class="attempts-heading">
+              <div>
+                <p class="overline">Fique de olho</p>
+                <h2>Tentativas</h2>
+              </div>
+
+              <!-- Tentativas restantes, atualizadas pelo JavaScript. -->
+              <strong id="attempts-left">8</strong>
+            </div>
+
+            <!-- Desenho da forca feito com SVG. -->
+            <div class="gallows" aria-label="Progresso da forca">
+              <svg viewBox="0 0 260 270" role="img">
+
+                <!-- Estrutura de madeira da forca. -->
+                <path
+                  class="wood"
+                  d="M31 244h166M64 244V25h122M64 60l35-35M186 25v35"
+                />
+
+                <!-- Partes do boneco, que aparecem conforme os erros. -->
+                <g class="figure">
+
+                  <!-- Cabeça. -->
+                  <circle data-part="1" cx="186" cy="82" r="22" />
+
+                  <!-- Tronco. -->
+                  <path data-part="2" d="M186 104v68" />
+
+                  <!-- Braço esquerdo. -->
+                  <path data-part="3" d="m186 121-31 28" />
+
+                  <!-- Braço direito. -->
+                  <path data-part="4" d="m186 121 31 28" />
+
+                  <!-- Perna esquerda. -->
+                  <path data-part="5" d="m186 172-27 40" />
+
+                  <!-- Perna direita. -->
+                  <path data-part="6" d="m186 172 27 40" />
+
+                  <!-- Olho esquerdo. -->
+                  <path data-part="7" d="m175 77 7 7m0-7-7 7" />
+
+                  <!-- Olho direito. -->
+                  <path data-part="8" d="m190 77 7 7m0-7-7 7" />
+
+                  <!-- Boca. -->
+                  <path data-part="9" d="M177 94q9-8 18 0" />
+
+                  <!-- Detalhe adicional do desenho. -->
+                  <path data-part="10" d="M165 111q21 12 42 0" />
+                </g>
+              </svg>
+            </div>
+
+            <!-- Indicadores circulares dos erros cometidos. -->
+            <div
+              class="mistake-dots"
+              id="mistake-dots"
+              aria-label="Erros cometidos"
+            ></div>
+          </aside>
+
+          <!-- Painel principal com informações e controles da partida. -->
+          <section class="panel game-board">
+
+            <!-- Informações de tempo e pontuação durante a partida. -->
+            <div class="game-metrics">
+
+              <!-- Cronômetro. -->
+              <div>
+                <span class="metric-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="13" r="7" />
+                    <path d="M12 13V9m-3-7h6m-3 4V2" />
+                  </svg>
+                </span>
+
+                <span>
+                  <small>Tempo</small>
+                  <strong id="timer">00:00</strong>
+                </span>
+              </div>
+
+              <!-- Pontuação acumulada. -->
+              <div>
+                <span class="metric-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6-5.4-2.9L6.6 20l1-6-4.4-4.3 6.1-.9L12 3Z" />
+                  </svg>
+                </span>
+
+                <span>
+                  <small>Pontos</small>
+                  <strong id="live-score">0</strong>
+                </span>
+              </div>
+            </div>
+
+            <!-- Área que exibe a palavra escondida e as mensagens do jogo. -->
+            <div class="word-area">
+
+              <!-- Dica com o número de letras da palavra. -->
+              <p id="word-hint">A palavra tem 0 letras</p>
+
+              <!-- Espaço onde o JavaScript cria os espaços e letras reveladas. -->
+              <div
+                id="masked-word"
+                class="masked-word"
+                aria-label="Palavra oculta"
+              ></div>
+
+              <!-- Mensagem que informa o estado da partida ao jogador. -->
+              <p
+                id="game-message"
+                class="game-message"
+                aria-live="polite"
+              >
+                Escolha uma letra para começar
+              </p>
+            </div>
+
+            <!-- Teclado virtual. As teclas serão criadas pelo JavaScript. -->
+            <div
+              id="keyboard"
+              class="keyboard"
+              aria-label="Teclado virtual"
+            ></div>
+
+            <!-- Formulário para tentar adivinhar a palavra inteira. -->
+            <form id="word-guess-form" class="word-guess-form">
+              <label for="word-guess">Já sabe a resposta?</label>
+
+              <div>
+                <!-- Campo de texto para digitar a palavra completa. -->
+                <input
+                  id="word-guess"
+                  type="text"
+                  placeholder="Digite a palavra inteira"
+                  autocomplete="off"
+                />
+
+                <!-- Botão que envia a tentativa de palavra. -->
+                <button
+                  class="button button-secondary"
+                  type="submit"
+                >
+                  Tentar palavra
+                </button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <!-- Janela de criação e edição de categorias personalizadas. -->
+    <dialog id="category-dialog" class="modal">
+
+      <!-- Formulário da categoria. method="dialog" permite fechar o diálogo ao enviar. -->
+      <form id="category-form" method="dialog">
+
+        <div class="modal-header">
+          <div>
+            <p class="overline">Seu próprio tema</p>
+
+            <!-- Título que pode mudar conforme a criação ou edição. -->
+            <h2 id="category-modal-title">Nova categoria</h2>
+          </div>
+
+          <!-- Botão para fechar a janela. -->
+          <button
+            class="icon-button close-modal"
+            type="button"
+            aria-label="Fechar"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6 6 12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Campo oculto para guardar o identificador da categoria em edição. -->
+        <input id="editing-category-id" type="hidden" />
+
+        <!-- Campo para informar o nome da categoria. -->
+        <label class="field">
+          <span>Nome da categoria</span>
+
+          <input
+            id="custom-category-name"
+            type="text"
+            maxlength="28"
+            placeholder="Ex.: Jogos favoritos"
+            required
+          />
+        </label>
+
+        <!-- Campo para adicionar várias palavras, uma por linha. -->
+        <label class="field">
+          <span>Palavras <small>(uma por linha)</small></span>
+
+          <textarea
+            id="custom-category-words"
+            rows="9"
+            placeholder="AVENTURA&#10;CASTELO&#10;TESOURO"
+            required
+          ></textarea>
+        </label>
+
+        <!-- Instrução sobre o preenchimento do formulário. -->
+        <p class="form-help">
+          Adicione pelo menos 3 palavras. Acentos e espaços são aceitos.
+        </p>
+
+        <!-- Local para apresentar mensagens de erro do formulário. -->
+        <p
+          id="category-form-error"
+          class="form-error"
+          role="alert"
+        ></p>
+
+        <!-- Botões de ação do formulário. -->
+        <div class="modal-actions">
+
+          <!-- Cancela a criação ou edição. -->
+          <button
+            class="button button-ghost close-modal"
+            type="button"
+          >
+            Cancelar
+          </button>
+
+          <!-- Salva a categoria preenchida. -->
+          <button class="button button-primary" type="submit">
+            Salvar categoria
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- Janela que aparece quando a partida termina. -->
+    <dialog id="result-dialog" class="modal result-modal">
+      <div class="result-content">
+
+        <!-- Selo visual que representa o resultado da partida. -->
+        <div id="result-seal" class="result-seal">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <!-- Símbolo de confirmação. -->
+            <path d="m18 33 9 9 20-23" />
+          </svg>
+        </div>
+
+        <!-- Texto de identificação do resultado. -->
+        <p class="overline" id="result-overline">
+          Desafio concluído
+        </p>
+
+        <!-- Título do resultado, como vitória ou derrota. -->
+        <h2 id="result-title">Você venceu!</h2>
+
+        <!-- Texto explicativo sobre a palavra. -->
+        <p id="result-copy">A palavra era</p>
+
+        <!-- Palavra correta revelada ao final da partida. -->
+        <strong id="result-word" class="result-word"></strong>
+
+        <!-- Estatísticas da partida encerrada. -->
+        <div class="result-stats">
+
+          <!-- Tempo total. -->
+          <div>
+            <small>Tempo</small>
+            <strong id="result-time">00:00</strong>
+          </div>
+
+          <!-- Pontuação final. -->
+          <div>
+            <small>Pontuação</small>
+            <strong id="result-score">0</strong>
+          </div>
+
+          <!-- Quantidade de erros. -->
+          <div>
+            <small>Erros</small>
+            <strong id="result-errors">0</strong>
+          </div>
+        </div>
+
+        <!-- Botões disponíveis depois do término da partida. -->
+        <div class="result-actions">
+
+          <!-- Fecha o resultado e volta para a seleção de categorias. -->
+          <button
+            id="result-home"
+            class="button button-ghost"
+            type="button"
+          >
+            Trocar categoria
+          </button>
+
+          <!-- Inicia outra partida. -->
+          <button
+            id="play-again"
+            class="button button-primary"
+            type="button"
+          >
+            Jogar novamente
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Mensagem temporária usada para avisos e confirmações. -->
+    <div
+      id="toast"
+      class="toast"
+      role="status"
+      aria-live="polite"
+    ></div>
+  </body>
+</html>

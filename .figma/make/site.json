@@ -1,0 +1,10 @@
+{
+  "description": "Interactive word-guessing game with customizable categories, multiple difficulty levels, virtual keyboard, scoring, and responsive design for engaging play on any device.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

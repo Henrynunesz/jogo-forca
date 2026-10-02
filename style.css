@@ -1,0 +1,1708 @@
+/* Importa duas fontes do Google Fonts:
+   DM Sans para textos comuns e Playfair Display para títulos. */
+   @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600;1,700&display=swap");
+
+   /* Variáveis globais: permitem reutilizar cores, bordas e sombras
+      em diferentes partes do projeto. */
+   :root {
+     --ink: #352720;           /* Cor principal dos textos */
+     --ink-soft: #6f5a4d;      /* Cor secundária dos textos */
+     --brown: #5b3828;         /* Marrom principal */
+     --brown-dark: #3f271d;    /* Marrom mais escuro */
+     --terracotta: #a15f42;    /* Cor de destaque */
+     --cream: #f7f1e7;         /* Cor de fundo geral */
+     --paper: #fffdf9;         /* Fundo dos cartões */
+     --sand: #e8dccb;          /* Bege */
+     --sand-light: #f1e8dc;    /* Bege mais claro */
+     --green: #52705b;         /* Verde de acerto */
+     --green-soft: #dfe9df;    /* Verde claro */
+     --red: #a84e45;           /* Vermelho de erro */
+     --red-soft: #f3dfda;      /* Vermelho claro */
+     --border: rgba(91, 56, 40, 0.15); /* Borda com transparência */
+     --shadow: 0 18px 50px rgba(70, 43, 30, 0.1); /* Sombra principal */
+     --shadow-small: 0 8px 24px rgba(70, 43, 30, 0.08); /* Sombra suave */
+   }
+   
+   /* Aplica box-sizing a todos os elementos.
+      Assim, padding e bordas entram no cálculo da largura e altura. */
+   * {
+     box-sizing: border-box;
+   }
+   
+   /* Faz a rolagem da página acontecer suavemente. */
+   html {
+     scroll-behavior: smooth;
+   }
+   
+   /* Configura o corpo da página. */
+   body {
+     margin: 0; /* Remove a margem padrão do navegador */
+     min-width: 320px; /* Evita que o layout fique estreito demais */
+     min-height: 100vh; /* Garante altura mínima igual à tela */
+     color: var(--ink); /* Cor padrão do texto */
+     background: var(--cream); /* Cor de fundo */
+     font-family: "DM Sans", sans-serif; /* Fonte padrão */
+     -webkit-font-smoothing: antialiased; /* Suaviza a renderização da fonte */
+   }
+   
+   /* Faz botões, campos e áreas de texto herdarem a fonte do site. */
+   button,
+   input,
+   textarea {
+     font: inherit;
+   }
+   
+   /* Faz os botões herdarem a cor do texto. */
+   button {
+     color: inherit;
+   }
+   
+   /* Remove o destaque de toque padrão em celulares. */
+   button,
+   a {
+     -webkit-tap-highlight-color: transparent;
+   }
+   
+   /* Faz elementos SVG serem exibidos como blocos. */
+   svg {
+     display: block;
+   }
+   
+   /* Esconde elementos que tenham o atributo hidden. */
+   [hidden] {
+     display: none !important;
+   }
+   
+   /* Link de acessibilidade para pular diretamente ao conteúdo.
+      Ele fica fora da tela até receber foco pelo teclado. */
+   .skip-link {
+     position: fixed;
+     top: 8px;
+     left: 8px;
+     z-index: 100; /* Mantém o link acima dos outros elementos */
+     padding: 10px 16px;
+     color: white;
+     background: var(--brown);
+     border-radius: 8px;
+     transform: translateY(-150%); /* Move o link para fora da tela */
+   }
+   
+   /* Quando o link recebe foco, ele volta à posição normal. */
+   .skip-link:focus {
+     transform: none;
+   }
+   
+   /* Elementos decorativos de fundo.
+      São círculos desfocados e não interferem nos cliques. */
+   .ambient {
+     position: fixed;
+     z-index: -1; /* Fica atrás do conteúdo */
+     width: 420px;
+     height: 420px;
+     border-radius: 50%; /* Transforma o elemento em círculo */
+     filter: blur(2px);
+     pointer-events: none; /* Impede que bloqueie cliques */
+   }
+   
+   /* Círculo decorativo no canto superior direito. */
+   .ambient-one {
+     right: -180px;
+     top: 100px;
+     background: rgba(190, 145, 111, 0.12);
+   }
+   
+   /* Círculo decorativo no canto inferior esquerdo. */
+   .ambient-two {
+     left: -210px;
+     bottom: -120px;
+     background: rgba(150, 111, 82, 0.1);
+   }
+   
+   /* Cabeçalho: limita a largura e centraliza seu conteúdo. */
+   .site-header {
+     width: min(1320px, calc(100% - 48px));
+     height: 86px;
+     margin: 0 auto;
+     display: flex; /* Organiza os elementos em linha */
+     align-items: center; /* Centraliza verticalmente */
+     justify-content: space-between; /* Separa os itens */
+     border-bottom: 1px solid var(--border);
+   }
+   
+   /* Agrupa o símbolo e o nome da marca. */
+   .brand {
+     display: flex;
+     align-items: center;
+     gap: 11px;
+     color: inherit;
+     text-decoration: none; /* Remove sublinhado do link */
+   }
+   
+   /* Caixa que contém o símbolo da marca. */
+   .brand-mark {
+     display: grid;
+     place-items: center; /* Centraliza o símbolo nos dois eixos */
+     width: 45px;
+     height: 45px;
+     color: var(--paper);
+     background: var(--brown);
+     border-radius: 14px 14px 14px 5px;
+     box-shadow: 0 8px 18px rgba(91, 56, 40, 0.2);
+   }
+   
+   /* Define o tamanho e o estilo dos SVGs da marca. */
+   .brand-mark svg {
+     width: 30px;
+     fill: none; /* Não preenche o desenho */
+     stroke: currentColor; /* Usa a cor do elemento pai */
+     stroke-width: 1.7; /* Espessura das linhas */
+     stroke-linecap: round;
+   }
+   
+   /* Nome principal da marca. */
+   .brand strong {
+     display: block;
+     font: 600 22px/1 "Playfair Display", serif;
+     letter-spacing: -0.5px;
+   }
+   
+   /* Pequeno texto abaixo do nome da marca. */
+   .brand small {
+     display: block;
+     margin-top: 4px;
+     color: var(--terracotta);
+     font-size: 8px;
+     font-weight: 700;
+     letter-spacing: 3.4px;
+   }
+   
+   /* Agrupa os botões do lado direito do cabeçalho. */
+   .header-actions {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+   }
+   
+   /* Botões que contêm apenas ícones. */
+   .icon-button {
+     width: 42px;
+     height: 42px;
+     padding: 0;
+     display: grid;
+     place-items: center;
+     border: 1px solid var(--border);
+     border-radius: 12px;
+     background: rgba(255, 253, 249, 0.55);
+     cursor: pointer;
+     transition: 180ms ease; /* Anima mudanças visuais */
+   }
+   
+   /* Efeito quando o mouse passa sobre o botão. */
+   .icon-button:hover {
+     background: white;
+     border-color: rgba(91, 56, 40, 0.3);
+     transform: translateY(-1px);
+   }
+   
+   /* Estiliza os ícones SVG dos botões. */
+   .icon-button svg {
+     width: 20px;
+     fill: none;
+     stroke: currentColor;
+     stroke-width: 1.8;
+     stroke-linecap: round;
+     stroke-linejoin: round;
+   }
+   
+   /* Controla a exibição dos ícones de som.
+      As classes são usadas para alternar entre som ligado e desligado. */
+   .sound-off,
+   .muted .sound-on {
+     display: none;
+   }
+   
+   /* Quando o elemento pai tem a classe muted,
+      o ícone de som desligado aparece. */
+   .muted .sound-off {
+     display: block;
+   }
+   
+   /* Área principal da página. */
+   main {
+     width: min(1320px, calc(100% - 48px));
+     margin: 0 auto;
+     padding: 54px 0 70px;
+   }
+   
+   /* Animação de entrada das telas. */
+   .screen {
+     animation: rise 450ms cubic-bezier(.2, .75, .3, 1) both;
+   }
+   
+   /* Define a animação rise.
+      O conteúdo começa um pouco abaixo e vai para a posição original. */
+   @keyframes rise {
+     from {
+       opacity: 0;
+       transform: translateY(12px);
+     }
+   }
+   
+   /* Seção inicial, com texto de apresentação e estatísticas. */
+   .hero {
+     display: grid;
+     grid-template-columns: 1.4fr 0.8fr; /* Coluna de texto maior */
+     align-items: end;
+     gap: 60px;
+     margin-bottom: 42px;
+   }
+   
+   /* Pequenos títulos em letras maiúsculas. */
+   .eyebrow,
+   .overline {
+     margin: 0;
+     color: var(--terracotta);
+     text-transform: uppercase;
+     letter-spacing: 2.4px;
+     font-size: 10px;
+     font-weight: 700;
+   }
+   
+   /* Organiza o pequeno título com uma linha decorativa. */
+   .eyebrow {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+   }
+   
+   /* Linha decorativa ao lado do título. */
+   .eyebrow span {
+     width: 30px;
+     height: 1px;
+     background: currentColor;
+   }
+   
+   /* Título principal da página. */
+   h1 {
+     max-width: 760px;
+     margin: 13px 0 16px;
+     font: 600 clamp(44px, 5vw, 70px)/0.98 "Playfair Display", serif;
+     letter-spacing: -2.5px;
+   }
+   
+   /* Destaca uma parte do título com outra cor. */
+   h1 em {
+     color: var(--terracotta);
+     font-weight: 600;
+   }
+   
+   /* Texto de apresentação. */
+   .hero-description {
+     max-width: 610px;
+     margin: 0;
+     color: var(--ink-soft);
+     font-size: 16px;
+     line-height: 1.7; /* Espaçamento entre linhas */
+   }
+   
+   /* Cartão que apresenta estatísticas do jogador. */
+   .stats-card {
+     padding: 25px 28px;
+     background: rgba(255, 253, 249, 0.72);
+     border: 1px solid var(--border);
+     border-radius: 20px 20px 20px 6px;
+     box-shadow: var(--shadow-small);
+     backdrop-filter: blur(8px); /* Desfoca o que estiver atrás */
+   }
+   
+   /* Título do cartão de estatísticas. */
+   .stats-title {
+     margin: 0 0 17px;
+     color: var(--ink-soft);
+     font-size: 11px;
+     font-weight: 700;
+     letter-spacing: 1.5px;
+     text-transform: uppercase;
+   }
+   
+   /* Organiza as estatísticas em três colunas. */
+   .stats-grid {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+   }
+   
+   /* Cada coluna de estatísticas. */
+   .stats-grid div {
+     padding: 0 16px;
+     border-left: 1px solid var(--border);
+   }
+   
+   /* Remove a borda e o espaçamento do primeiro item. */
+   .stats-grid div:first-child {
+     padding-left: 0;
+     border: 0;
+   }
+   
+   /* Números das estatísticas. */
+   .stats-grid strong {
+     display: block;
+     font: 600 27px/1 "Playfair Display", serif;
+   }
+   
+   /* Descrições das estatísticas. */
+   .stats-grid span {
+     display: block;
+     margin-top: 7px;
+     color: var(--ink-soft);
+     font-size: 10px;
+     text-transform: uppercase;
+     letter-spacing: .7px;
+   }
+   
+   /* Organiza a área de seleção de categoria e opções do jogo. */
+   .setup-layout {
+     display: grid;
+     grid-template-columns: minmax(0, 1.55fr) minmax(310px, .75fr);
+     gap: 22px;
+     align-items: start;
+   }
+   
+   /* Agrupa os cartões laterais verticalmente. */
+   .setup-sidebar {
+     display: grid;
+     gap: 22px;
+   }
+   
+   /* Estilo compartilhado dos painéis. */
+   .panel {
+     background: var(--paper);
+     border: 1px solid var(--border);
+     border-radius: 24px 24px 24px 8px;
+     box-shadow: var(--shadow);
+   }
+   
+   /* Espaçamento interno do painel de categorias. */
+   .category-panel {
+     padding: 30px;
+   }
+   
+   /* Cabeçalho de uma seção, incluindo seu conteúdo interno. */
+   .section-heading,
+   .section-heading > div {
+     display: flex;
+     align-items: center;
+   }
+   
+   /* Distribui os itens do cabeçalho e cria espaço abaixo. */
+   .section-heading {
+     justify-content: space-between;
+     margin-bottom: 24px;
+   }
+   
+   /* Espaço entre o número da etapa e seu título. */
+   .section-heading > div {
+     gap: 13px;
+   }
+   
+   /* Número visual que identifica uma etapa. */
+   .step-number {
+     display: grid;
+     place-items: center;
+     flex: 0 0 auto; /* Impede que o elemento encolha */
+     width: 40px;
+     height: 40px;
+     color: var(--terracotta);
+     background: var(--sand-light);
+     border-radius: 12px;
+     font: 600 14px "Playfair Display", serif;
+   }
+   
+   /* Títulos secundários. */
+   h2 {
+     margin: 4px 0 0;
+     font: 600 22px/1.1 "Playfair Display", serif;
+   }
+   
+   /* Etiquetas com a quantidade de categorias ou palavras. */
+   .category-count,
+   .preview-header > span {
+     padding: 7px 11px;
+     color: var(--ink-soft);
+     background: var(--sand-light);
+     border-radius: 100px; /* Formato de cápsula */
+     font-size: 11px;
+     font-weight: 600;
+   }
+   
+   /* Campo de pesquisa de categorias e palavras. */
+   .search-box {
+     height: 46px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     padding: 0 14px;
+     background: #faf7f2;
+     border: 1px solid var(--border);
+     border-radius: 13px;
+     transition: 180ms ease;
+   }
+   
+   /* Muda a aparência quando o campo ou algum elemento interno recebe foco. */
+   .search-box:focus-within {
+     background: white;
+     border-color: var(--terracotta);
+     box-shadow: 0 0 0 3px rgba(161, 95, 66, .1);
+   }
+   
+   /* Ícone da pesquisa. */
+   .search-box svg {
+     flex: 0 0 auto;
+     width: 18px;
+     fill: none;
+     stroke: var(--ink-soft);
+     stroke-width: 1.8;
+     stroke-linecap: round;
+   }
+   
+   /* Campo de texto da pesquisa. */
+   .search-box input {
+     width: 100%;
+     border: 0;
+     outline: 0;
+     color: var(--ink);
+     background: transparent;
+     font-size: 13px;
+   }
+   
+   /* Cor dos textos de exemplo dos campos. */
+   .search-box input::placeholder,
+   input::placeholder,
+   textarea::placeholder {
+     color: #a9998e;
+   }
+   
+   /* Grade de cartões das categorias. */
+   .category-grid {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr); /* Três colunas */
+     gap: 10px;
+     margin-top: 16px;
+     max-height: 422px;
+     overflow: auto; /* Adiciona rolagem se necessário */
+     padding: 2px;
+   }
+   
+   /* Cartão individual de categoria. */
+   .category-card {
+     position: relative; /* Permite posicionar ações dentro do cartão */
+     min-height: 79px;
+     padding: 13px;
+     display: flex;
+     align-items: center;
+     gap: 11px;
+     text-align: left;
+     background: #faf7f2;
+     border: 1px solid transparent;
+     border-radius: 15px;
+     cursor: pointer;
+     transition: 160ms ease;
+   }
+   
+   /* Efeito de destaque ao passar o mouse sobre uma categoria. */
+   .category-card:hover {
+     background: var(--sand-light);
+     transform: translateY(-1px);
+   }
+   
+   /* Aparência da categoria atualmente selecionada. */
+   .category-card.active {
+     background: var(--brown);
+     border-color: var(--brown);
+     color: white;
+     box-shadow: 0 8px 20px rgba(91, 56, 40, .2);
+   }
+   
+   /* Símbolo ou inicial que representa uma categoria. */
+   .category-symbol {
+     flex: 0 0 auto;
+     width: 38px;
+     height: 38px;
+     display: grid;
+     place-items: center;
+     color: var(--brown);
+     background: var(--sand);
+     border-radius: 11px;
+     font: 600 15px "Playfair Display", serif;
+   }
+   
+   /* Ajusta o símbolo da categoria selecionada. */
+   .category-card.active .category-symbol {
+     color: white;
+     background: rgba(255, 255, 255, .14);
+   }
+   
+   /* Nome da categoria. */
+   .category-card strong {
+     display: block;
+     max-width: 105px;
+     overflow: hidden;
+     text-overflow: ellipsis; /* Mostra reticências se o nome for longo */
+     font-size: 12px;
+     white-space: nowrap;
+   }
+   
+   /* Texto secundário do cartão de categoria. */
+   .category-card small {
+     display: block;
+     margin-top: 4px;
+     color: var(--ink-soft);
+     font-size: 9px;
+   }
+   
+   /* Texto secundário da categoria selecionada. */
+   .category-card.active small {
+     color: rgba(255, 255, 255, .65);
+   }
+   
+   /* Botões de ações, como editar ou excluir categorias.
+      Inicialmente ficam escondidos. */
+   .card-actions {
+     position: absolute;
+     top: 5px;
+     right: 5px;
+     display: none;
+     gap: 2px;
+   }
+   
+   /* Mostra os botões de ações ao passar o mouse
+      ou ao navegar com foco pelo teclado. */
+   .category-card:hover .card-actions,
+   .category-card:focus-within .card-actions {
+     display: flex;
+   }
+   
+   /* Botões pequenos dentro dos cartões. */
+   .card-action {
+     width: 23px;
+     height: 23px;
+     padding: 0;
+     display: grid;
+     place-items: center;
+     border: 0;
+     border-radius: 7px;
+     color: inherit;
+     background: rgba(255, 255, 255, .72);
+     cursor: pointer;
+     font-size: 11px;
+   }
+   
+   /* Fundo dos botões no cartão selecionado. */
+   .category-card.active .card-action {
+     background: rgba(255, 255, 255, .16);
+   }
+   
+   /* Mensagem exibida quando não há resultados ou categorias. */
+   .empty-state {
+     grid-column: 1 / -1; /* Ocupa todas as colunas da grade */
+     padding: 35px;
+     text-align: center;
+     color: var(--ink-soft);
+     font-size: 13px;
+   }
+   
+   /* Espaçamento interno dos painéis de prévia e dificuldade. */
+   .word-preview,
+   .play-panel {
+     padding: 25px;
+   }
+   
+   /* Cabeçalho da prévia de palavras. */
+   .preview-header {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin-bottom: 18px;
+   }
+   
+   /* Versão menor do campo de pesquisa. */
+   .search-box.compact {
+     height: 40px;
+   }
+   
+   /* Área onde aparecem as palavras da categoria selecionada. */
+   .word-list {
+     min-height: 128px;
+     max-height: 164px;
+     margin-top: 13px;
+     padding-right: 5px;
+     display: flex;
+     flex-wrap: wrap; /* Permite que os itens passem para a linha seguinte */
+     align-content: flex-start;
+     gap: 7px;
+     overflow: auto;
+   }
+   
+   /* Cada palavra aparece como uma pequena etiqueta. */
+   .word-pill {
+     padding: 6px 9px;
+     color: var(--ink-soft);
+     background: var(--sand-light);
+     border-radius: 8px;
+     font-size: 10px;
+     font-weight: 600;
+     text-transform: lowercase;
+   }
+   
+   /* Cabeçalho simples alinhado à esquerda. */
+   .section-heading.simple {
+     justify-content: flex-start;
+   }
+   
+   /* Opções de dificuldade em três colunas. */
+   .difficulty-options {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 7px;
+   }
+   
+   /* Botão de cada nível de dificuldade. */
+   .difficulty {
+     padding: 11px 5px;
+     display: flex;
+     flex-direction: column; /* Empilha ícone e textos */
+     align-items: center;
+     gap: 7px;
+     background: #faf7f2;
+     border: 1px solid transparent;
+     border-radius: 13px;
+     cursor: pointer;
+     transition: 160ms;
+   }
+   
+   /* Efeito ao passar o mouse sobre uma dificuldade. */
+   .difficulty:hover {
+     background: var(--sand-light);
+   }
+   
+   /* Estilo da dificuldade selecionada. */
+   .difficulty.active {
+     border-color: var(--terracotta);
+     background: #fff9f4;
+     box-shadow: inset 0 0 0 1px var(--terracotta);
+   }
+   
+   /* Ícone ou símbolo do nível de dificuldade. */
+   .difficulty-icon {
+     width: 28px;
+     height: 28px;
+     display: grid;
+     place-items: center;
+     color: var(--terracotta);
+     background: var(--sand-light);
+     border-radius: 50%;
+     font: 600 11px "Playfair Display", serif;
+   }
+   
+   /* Faz os textos dos níveis ocuparem linhas separadas. */
+   .difficulty strong,
+   .difficulty small {
+     display: block;
+   }
+   
+   /* Nome do nível. */
+   .difficulty strong {
+     font-size: 11px;
+   }
+   
+   /* Descrição ou quantidade de erros permitidos. */
+   .difficulty small {
+     margin-top: 2px;
+     color: var(--ink-soft);
+     font-size: 8px;
+   }
+   
+   /* Estilo-base de todos os botões principais do projeto. */
+   .button {
+     min-height: 44px;
+     padding: 0 18px;
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     gap: 9px;
+     border: 1px solid transparent;
+     border-radius: 12px;
+     font-weight: 700;
+     font-size: 12px;
+     cursor: pointer;
+     transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+   }
+   
+   /* Levanta levemente os botões ao passar o mouse. */
+   .button:hover {
+     transform: translateY(-1px);
+   }
+   
+   /* Ícones dentro dos botões. */
+   .button svg {
+     width: 18px;
+     fill: none;
+     stroke: currentColor;
+     stroke-width: 1.8;
+     stroke-linecap: round;
+     stroke-linejoin: round;
+   }
+   
+   /* Botão principal, com fundo marrom. */
+   .button-primary {
+     color: white;
+     background: var(--brown);
+     box-shadow: 0 9px 22px rgba(91, 56, 40, .2);
+   }
+   
+   /* Efeito do botão principal ao passar o mouse. */
+   .button-primary:hover {
+     background: var(--brown-dark);
+     box-shadow: 0 11px 24px rgba(91, 56, 40, .27);
+   }
+   
+   /* Botão secundário, com fundo bege. */
+   .button-secondary {
+     color: var(--brown);
+     background: var(--sand-light);
+     border-color: var(--border);
+   }
+   
+   /* Efeito do botão secundário. */
+   .button-secondary:hover {
+     background: var(--sand);
+   }
+   
+   /* Botão discreto, sem cor de fundo. */
+   .button-ghost {
+     color: var(--brown);
+     background: transparent;
+     border-color: var(--border);
+   }
+   
+   /* Variação de botão menor. */
+   .button-small {
+     min-height: 40px;
+   }
+   
+   /* Faz o botão de iniciar ocupar toda a largura disponível. */
+   .start-button {
+     width: 100%;
+     margin-top: 17px;
+   }
+   
+   /* Centraliza e limita a largura da tela de jogo. */
+   .game-screen {
+     max-width: 1140px;
+     margin: 0 auto;
+   }
+   
+   /* Barra superior da tela de jogo.
+      Usa três colunas para distribuir os elementos. */
+   .game-topbar {
+     display: grid;
+     grid-template-columns: 1fr auto 1fr;
+     align-items: center;
+     margin-bottom: 26px;
+   }
+   
+   /* Botões de voltar e ações em formato de texto. */
+   .back-button,
+   .text-button {
+     width: max-content;
+     padding: 8px 0;
+     display: inline-flex;
+     align-items: center;
+     gap: 7px;
+     border: 0;
+     color: var(--ink-soft);
+     background: transparent;
+     cursor: pointer;
+     font-size: 12px;
+     font-weight: 600;
+   }
+   
+   /* Alinha o botão de texto à direita. */
+   .text-button {
+     justify-self: end;
+   }
+   
+   /* Muda a cor dos botões de navegação ao passar o mouse. */
+   .back-button:hover,
+   .text-button:hover {
+     color: var(--brown);
+   }
+   
+   /* Ícones dos botões de navegação. */
+   .back-button svg,
+   .text-button svg {
+     width: 18px;
+     fill: none;
+     stroke: currentColor;
+     stroke-width: 1.8;
+     stroke-linecap: round;
+     stroke-linejoin: round;
+   }
+   
+   /* Agrupa etiquetas da categoria e dificuldade. */
+   .game-chips {
+     display: flex;
+     gap: 7px;
+   }
+   
+   /* Etiqueta preenchida usada na tela de jogo. */
+   .chip {
+     padding: 8px 13px;
+     color: white;
+     background: var(--terracotta);
+     border-radius: 100px;
+     font-size: 10px;
+     font-weight: 700;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+   }
+   
+   /* Variação de etiqueta com borda. */
+   .chip-outline {
+     color: var(--ink-soft);
+     background: transparent;
+     border: 1px solid var(--border);
+   }
+   
+   /* Organiza o desenho da forca e o painel de jogo lado a lado. */
+   .game-layout {
+     display: grid;
+     grid-template-columns: 300px 1fr;
+     gap: 22px;
+   }
+   
+   /* Espaçamento do cartão que contém a forca. */
+   .gallows-card {
+     padding: 25px;
+   }
+   
+   /* Cabeçalho que mostra as tentativas. */
+   .attempts-heading {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+   }
+   
+   /* Número de tentativas restantes. */
+   .attempts-heading strong {
+     width: 43px;
+     height: 43px;
+     display: grid;
+     place-items: center;
+     color: var(--terracotta);
+     background: var(--sand-light);
+     border-radius: 13px;
+     font: 600 21px "Playfair Display", serif;
+   }
+   
+   /* Área que contém o desenho SVG da forca. */
+   .gallows {
+     height: 320px;
+     display: grid;
+     place-items: center;
+   }
+   
+   /* Configura o tamanho e o estilo do desenho da forca. */
+   .gallows svg {
+     width: 100%;
+     max-height: 285px;
+     fill: none;
+     stroke-linecap: round;
+     stroke-linejoin: round;
+   }
+   
+   /* Partes de madeira da forca. */
+   .gallows .wood {
+     stroke: #92735e;
+     stroke-width: 6;
+   }
+   
+   /* Partes do desenho que representam o boneco. */
+   .gallows .figure {
+     stroke: var(--brown);
+     stroke-width: 5;
+   }
+   
+   /* Partes do desenho começam invisíveis e menores. */
+   .gallows [data-part] {
+     opacity: 0;
+     transform-origin: center;
+     transition: opacity 250ms, transform 250ms;
+     transform: scale(.8);
+   }
+   
+   /* Quando uma parte recebe a classe visible,
+      ela aparece com uma pequena animação. */
+   .gallows [data-part].visible {
+     opacity: 1;
+     transform: scale(1);
+   }
+   
+   /* Indicadores circulares dos erros cometidos. */
+   .mistake-dots {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     gap: 6px;
+   }
+   
+   /* Cada indicador de erro. */
+   .mistake-dot {
+     width: 8px;
+     height: 8px;
+     background: var(--sand);
+     border-radius: 50%;
+     transition: 200ms;
+   }
+   
+   /* Indicador que representa um erro já cometido. */
+   .mistake-dot.used {
+     background: var(--red);
+     transform: scale(1.2);
+   }
+   
+   /* Painel principal que contém a palavra e o teclado. */
+   .game-board {
+     padding: 30px 38px 32px;
+   }
+   
+   /* Área das métricas, como tempo e pontuação. */
+   .game-metrics {
+     display: flex;
+     justify-content: flex-end;
+     gap: 28px;
+   }
+   
+   /* Agrupa o ícone e os textos de cada métrica. */
+   .game-metrics > div {
+     display: flex;
+     align-items: center;
+     gap: 9px;
+   }
+   
+   /* Fundo do ícone de cada métrica. */
+   .metric-icon {
+     width: 34px;
+     height: 34px;
+     display: grid;
+     place-items: center;
+     color: var(--terracotta);
+     background: var(--sand-light);
+     border-radius: 10px;
+   }
+   
+   /* Tamanho e aparência dos ícones das métricas. */
+   .metric-icon svg {
+     width: 18px;
+     fill: none;
+     stroke: currentColor;
+     stroke-width: 1.7;
+     stroke-linecap: round;
+     stroke-linejoin: round;
+   }
+   
+   /* Separa os rótulos e valores em linhas. */
+   .game-metrics small,
+   .game-metrics strong {
+     display: block;
+   }
+   
+   /* Rótulo da métrica. */
+   .game-metrics small {
+     color: var(--ink-soft);
+     font-size: 8px;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+   }
+   
+   /* Valor da métrica. */
+   .game-metrics strong {
+     margin-top: 2px;
+     font-size: 13px;
+   }
+   
+   /* Área central da palavra oculta. */
+   .word-area {
+     min-height: 190px;
+     padding: 36px 0 25px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+   }
+   
+   /* Texto que orienta o jogador acima da palavra. */
+   .word-area > p:first-child {
+     margin: 0 0 20px;
+     color: var(--ink-soft);
+     font-size: 11px;
+     letter-spacing: .5px;
+   }
+   
+   /* Organiza os espaços das letras da palavra. */
+   .masked-word {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     gap: 8px;
+   }
+   
+   /* Cada espaço individual de uma letra. */
+   .letter-slot {
+     width: clamp(25px, 3.2vw, 38px);
+     height: 47px;
+     display: grid;
+     place-items: center;
+     border-bottom: 2px solid var(--brown);
+     font: 600 clamp(19px, 2.2vw, 27px) "Playfair Display", serif;
+     text-transform: uppercase;
+     transition: 200ms;
+   }
+   
+   /* Aparência da letra depois de ser revelada. */
+   .letter-slot.revealed {
+     color: var(--green);
+     animation: pop 250ms ease;
+   }
+   
+   /* Espaço entre palavras compostas.
+      Não apresenta a linha inferior de uma letra. */
+   .letter-slot.space {
+     width: 16px;
+     border: 0;
+   }
+   
+   /* Animação que movimenta levemente a letra revelada. */
+   @keyframes pop {
+     50% {
+       transform: translateY(-4px);
+     }
+   }
+   
+   /* Mensagens exibidas durante a partida. */
+   .game-message {
+     min-height: 18px;
+     margin: 17px 0 0;
+     color: var(--ink-soft);
+     font-size: 11px;
+   }
+   
+   /* Mensagem de erro. */
+   .game-message.error {
+     color: var(--red);
+   }
+   
+   /* Mensagem de sucesso. */
+   .game-message.success {
+     color: var(--green);
+   }
+   
+   /* Teclado virtual.
+      As teclas são organizadas em linhas conforme o espaço disponível. */
+   .keyboard {
+     max-width: 650px;
+     margin: 0 auto;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: 7px;
+   }
+   
+   /* Aparência padrão de cada tecla virtual. */
+   .key {
+     width: 38px;
+     height: 40px;
+     padding: 0;
+     border: 1px solid var(--border);
+     border-radius: 9px;
+     color: var(--brown);
+     background: #f5eee5;
+     font-weight: 700;
+     font-size: 12px;
+     cursor: pointer;
+     box-shadow: 0 3px 0 #dfd1c0;
+     transition: 120ms ease;
+   }
+   
+   /* Efeito de tecla disponível ao passar o mouse. */
+   .key:hover:not(:disabled) {
+     background: var(--sand);
+     transform: translateY(-1px);
+   }
+   
+   /* Efeito quando a tecla é pressionada. */
+   .key:active:not(:disabled) {
+     box-shadow: none;
+     transform: translateY(2px);
+   }
+   
+   /* Aparência das teclas que não podem mais ser selecionadas. */
+   .key:disabled {
+     cursor: default;
+     box-shadow: none;
+     color: white;
+   }
+   
+   /* Tecla que representa uma letra correta. */
+   .key.correct {
+     background: var(--green);
+     border-color: var(--green);
+   }
+   
+   /* Tecla que representa uma letra incorreta. */
+   .key.wrong {
+     background: var(--red);
+     border-color: var(--red);
+   }
+   
+   /* Formulário para tentar adivinhar a palavra completa. */
+   .word-guess-form {
+     max-width: 600px;
+     margin: 29px auto 0;
+     padding-top: 22px;
+     border-top: 1px solid var(--border);
+   }
+   
+   /* Rótulo do campo de tentativa. */
+   .word-guess-form > label {
+     display: block;
+     margin-bottom: 8px;
+     color: var(--ink-soft);
+     font-size: 10px;
+     font-weight: 700;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+   }
+   
+   /* Agrupa o campo de texto e o botão de confirmação. */
+   .word-guess-form > div {
+     display: flex;
+     gap: 8px;
+   }
+   
+   /* Estilo compartilhado dos campos dos formulários. */
+   .word-guess-form input,
+   .field input,
+   .field textarea {
+     width: 100%;
+     border: 1px solid var(--border);
+     outline: 0;
+     color: var(--ink);
+     background: #faf7f2;
+     border-radius: 12px;
+     transition: 180ms;
+   }
+   
+   /* Campo de tentativa da palavra inteira. */
+   .word-guess-form input {
+     min-width: 0;
+     height: 44px;
+     padding: 0 14px;
+     font-size: 12px;
+     text-transform: uppercase;
+   }
+   
+   /* Destaque dos campos quando recebem foco. */
+   .word-guess-form input:focus,
+   .field input:focus,
+   .field textarea:focus {
+     border-color: var(--terracotta);
+     box-shadow: 0 0 0 3px rgba(161, 95, 66, .1);
+     background: white;
+   }
+   
+   /* Janela modal usada para formulários e resultados.
+      O elemento HTML dialog pode receber essa classe. */
+   .modal {
+     width: min(520px, calc(100% - 32px));
+     max-height: calc(100vh - 32px);
+     padding: 0;
+     color: var(--ink);
+     background: var(--paper);
+     border: 1px solid var(--border);
+     border-radius: 24px 24px 24px 8px;
+     box-shadow: 0 30px 90px rgba(53, 39, 32, .3);
+     overflow: auto;
+   }
+   
+   /* Fundo escurecido que aparece atrás da janela modal. */
+   .modal::backdrop {
+     background: rgba(53, 39, 32, .48);
+     backdrop-filter: blur(4px);
+   }
+   
+   /* Animação de abertura do modal. */
+   .modal[open] {
+     animation: modal-in 220ms ease both;
+   }
+   
+   /* Define o movimento e a transparência da abertura. */
+   @keyframes modal-in {
+     from {
+       opacity: 0;
+       transform: translateY(12px) scale(.98);
+     }
+   }
+   
+   /* Espaçamento interno do formulário e da tela de resultado. */
+   .modal form,
+   .result-content {
+     padding: 30px;
+   }
+   
+   /* Cabeçalho do modal. */
+   .modal-header {
+     display: flex;
+     align-items: flex-start;
+     justify-content: space-between;
+     margin-bottom: 24px;
+   }
+   
+   /* Cada campo do formulário. */
+   .field {
+     display: block;
+     margin-top: 17px;
+   }
+   
+   /* Rótulo dos campos. */
+   .field > span {
+     display: block;
+     margin-bottom: 8px;
+     font-size: 11px;
+     font-weight: 700;
+   }
+   
+   /* Texto auxiliar do formulário. */
+   .field small {
+     color: var(--ink-soft);
+     font-weight: 400;
+   }
+   
+   /* Campo de texto dentro dos formulários. */
+   .field input {
+     height: 46px;
+     padding: 0 13px;
+   }
+   
+   /* Área de texto para entradas maiores. */
+   .field textarea {
+     padding: 13px;
+     resize: vertical; /* Permite alterar apenas a altura */
+     line-height: 1.55;
+   }
+   
+   /* Instruções auxiliares abaixo dos campos. */
+   .form-help {
+     margin: 9px 0 0;
+     color: var(--ink-soft);
+     font-size: 10px;
+   }
+   
+   /* Espaço reservado para mensagens de erro. */
+   .form-error {
+     min-height: 15px;
+     margin: 8px 0 0;
+     color: var(--red);
+     font-size: 11px;
+   }
+   
+   /* Agrupa os botões do formulário. */
+   .modal-actions {
+     display: flex;
+     justify-content: flex-end;
+     gap: 8px;
+     margin-top: 20px;
+   }
+   
+   /* Modal que apresenta o resultado da partida. */
+   .result-modal {
+     width: min(500px, calc(100% - 32px));
+     text-align: center;
+   }
+   
+   /* Símbolo circular que indica o resultado. */
+   .result-seal {
+     width: 70px;
+     height: 70px;
+     margin: 0 auto 18px;
+     display: grid;
+     place-items: center;
+     color: white;
+     background: var(--green);
+     border-radius: 50% 50% 50% 14px;
+     box-shadow: 0 10px 25px rgba(82, 112, 91, .25);
+   }
+   
+   /* Variação visual para indicar derrota. */
+   .result-seal.lost {
+     background: var(--red);
+     border-radius: 50% 50% 14px 50%;
+   }
+   
+   /* Ícone dentro do símbolo de resultado. */
+   .result-seal svg {
+     width: 37px;
+     fill: none;
+     stroke: currentColor;
+     stroke-width: 4;
+     stroke-linecap: round;
+     stroke-linejoin: round;
+   }
+   
+   /* Rotaciona o ícone quando o resultado é derrota. */
+   .result-seal.lost svg {
+     transform: rotate(45deg);
+   }
+   
+   /* Título do resultado. */
+   .result-content h2 {
+     margin-top: 8px;
+     font-size: 32px;
+   }
+   
+   /* Texto explicativo do resultado. */
+   .result-content > p:not(.overline) {
+     margin: 13px 0 4px;
+     color: var(--ink-soft);
+     font-size: 13px;
+   }
+   
+   /* Palavra correta exibida na tela de resultado. */
+   .result-word {
+     display: block;
+     color: var(--terracotta);
+     font: 600 27px "Playfair Display", serif;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+   }
+   
+   /* Grade de estatísticas da partida finalizada. */
+   .result-stats {
+     margin: 25px 0;
+     padding: 17px 0;
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     background: var(--sand-light);
+     border-radius: 14px;
+   }
+   
+   /* Cria divisórias entre as estatísticas. */
+   .result-stats div + div {
+     border-left: 1px solid var(--border);
+   }
+   
+   /* Separa os rótulos e valores das estatísticas. */
+   .result-stats small,
+   .result-stats strong {
+     display: block;
+   }
+   
+   /* Rótulo das estatísticas finais. */
+   .result-stats small {
+     color: var(--ink-soft);
+     font-size: 9px;
+     text-transform: uppercase;
+     letter-spacing: 1px;
+   }
+   
+   /* Valor das estatísticas finais. */
+   .result-stats strong {
+     margin-top: 5px;
+     font: 600 18px "Playfair Display", serif;
+   }
+   
+   /* Botões de ação na tela de resultado. */
+   .result-actions {
+     display: flex;
+     justify-content: center;
+     gap: 8px;
+   }
+   
+   /* Notificação temporária exibida na parte inferior da tela. */
+   .toast {
+     position: fixed;
+     z-index: 200;
+     left: 50%;
+     bottom: 22px;
+     padding: 12px 18px;
+     color: white;
+     background: var(--brown-dark);
+     border-radius: 10px;
+     box-shadow: var(--shadow);
+     font-size: 12px;
+     opacity: 0; /* Começa invisível */
+     pointer-events: none; /* Não bloqueia interações */
+     transform: translate(-50%, 12px);
+     transition: 200ms;
+   }
+   
+   /* Torna a notificação visível quando recebe a classe show. */
+   .toast.show {
+     opacity: 1;
+     transform: translate(-50%, 0);
+   }
+   
+   /* Personaliza a barra de rolagem em navegadores WebKit. */
+   ::-webkit-scrollbar {
+     width: 6px;
+     height: 6px;
+   }
+   
+   /* Aparência do indicador da barra de rolagem. */
+   ::-webkit-scrollbar-thumb {
+     background: #d6c5b4;
+     border-radius: 10px;
+   }
+   
+   /* Destaque visual de elementos que recebem foco pelo teclado.
+      Ajuda na acessibilidade. */
+   *:focus-visible {
+     outline: 2px solid var(--terracotta);
+     outline-offset: 2px;
+   }
+   
+   /* Ajustes para telas de até 1000 pixels de largura. */
+   @media (max-width: 1000px) {
+     /* Coloca a apresentação em uma única coluna. */
+     .hero {
+       grid-template-columns: 1fr;
+       gap: 25px;
+     }
+   
+     /* Limita a largura do cartão de estatísticas. */
+     .stats-card {
+       max-width: 500px;
+     }
+   
+     /* Coloca as áreas de configuração uma abaixo da outra. */
+     .setup-layout {
+       grid-template-columns: 1fr;
+     }
+   
+     /* Coloca os cartões laterais em duas colunas. */
+     .setup-sidebar {
+       grid-template-columns: 1fr 1fr;
+     }
+   
+     /* Reduz a largura da área da forca. */
+     .game-layout {
+       grid-template-columns: 245px 1fr;
+     }
+   
+     .gallows-card {
+       padding: 20px;
+     }
+   
+     .game-board {
+       padding: 25px;
+     }
+   }
+   
+   /* Ajustes para tablets e celulares maiores. */
+   @media (max-width: 760px) {
+     /* Reduz as margens laterais. */
+     .site-header,
+     main {
+       width: min(100% - 28px, 680px);
+     }
+   
+     .site-header {
+       height: 74px;
+     }
+   
+     main {
+       padding-top: 36px;
+     }
+   
+     /* Transforma botões pequenos em botões com foco no ícone. */
+     .button-small {
+       width: 42px;
+       padding: 0;
+       font-size: 0;
+     }
+   
+     .button-small svg {
+       width: 19px;
+     }
+   
+     .hero {
+       margin-bottom: 28px;
+     }
+   
+     /* Redimensiona o título para telas menores. */
+     h1 {
+       font-size: clamp(39px, 12vw, 55px);
+       letter-spacing: -1.8px;
+     }
+   
+     .hero-description {
+       font-size: 14px;
+     }
+   
+     /* Empilha os cartões laterais. */
+     .setup-sidebar {
+       grid-template-columns: 1fr;
+     }
+   
+     /* Diminui o espaçamento interno dos painéis. */
+     .category-panel,
+     .word-preview,
+     .play-panel {
+       padding: 20px;
+     }
+   
+     /* Mostra as categorias em duas colunas. */
+     .category-grid {
+       grid-template-columns: repeat(2, 1fr);
+       max-height: 380px;
+     }
+   
+     /* Reorganiza a barra superior do jogo. */
+     .game-topbar {
+       grid-template-columns: 1fr 1fr;
+       gap: 12px;
+     }
+   
+     /* Move as etiquetas para uma segunda linha. */
+     .game-chips {
+       grid-row: 2;
+       grid-column: 1 / -1;
+       justify-content: center;
+     }
+   
+     /* Coloca a forca acima do painel de jogo. */
+     .game-layout {
+       grid-template-columns: 1fr;
+     }
+   
+     /* Organiza o cartão da forca em duas colunas. */
+     .gallows-card {
+       display: grid;
+       grid-template-columns: 1fr 150px;
+       align-items: center;
+     }
+   
+     .gallows {
+       height: 180px;
+     }
+   
+     /* Faz os indicadores de erro ocuparem a largura inteira. */
+     .mistake-dots {
+       grid-column: 1 / -1;
+     }
+   
+     /* Reduz o espaço interno do painel de jogo. */
+     .game-board {
+       padding: 20px 14px 24px;
+     }
+   
+     /* Diminui o tamanho das teclas virtuais. */
+     .key {
+       width: 34px;
+       height: 38px;
+     }
+   }
+   
+   /* Ajustes específicos para celulares pequenos. */
+   @media (max-width: 430px) {
+     .brand strong {
+       font-size: 20px;
+     }
+   
+     .brand-mark {
+       width: 41px;
+       height: 41px;
+     }
+   
+     .stats-card {
+       padding: 20px;
+     }
+   
+     .stats-grid div {
+       padding: 0 9px;
+     }
+   
+     .stats-grid strong {
+       font-size: 22px;
+     }
+   
+     .category-grid {
+       grid-template-columns: 1fr 1fr;
+     }
+   
+     .category-card {
+       padding: 10px;
+       min-height: 68px;
+     }
+   
+     .category-symbol {
+       width: 32px;
+       height: 32px;
+     }
+   
+     /* Reduz a área reservada ao desenho da forca. */
+     .gallows-card {
+       grid-template-columns: 1fr 120px;
+     }
+   
+     .game-metrics {
+       justify-content: center;
+     }
+   
+     .word-area {
+       min-height: 170px;
+       padding-top: 28px;
+     }
+   
+     .masked-word {
+       gap: 5px;
+     }
+   
+     .letter-slot {
+       width: 24px;
+     }
+   
+     .keyboard {
+       gap: 5px;
+     }
+   
+     .key {
+       width: 31px;
+       height: 36px;
+     }
+   
+     /* Empilha o campo de tentativa e o botão. */
+     .word-guess-form > div {
+       flex-direction: column;
+     }
+   
+     .word-guess-form .button {
+       width: 100%;
+     }
+   
+     /* Coloca os botões de resultado um abaixo do outro. */
+     .result-actions {
+       flex-direction: column;
+     }
+   }
+   
+   /* Respeita a preferência do sistema por movimento reduzido.
+      Diminui animações e transições para pessoas que ativaram essa opção. */
+   @media (prefers-reduced-motion: reduce) {
+     *,
+     *::before,
+     *::after {
+       scroll-behavior: auto !important;
+       animation-duration: .01ms !important;
+       transition-duration: .01ms !important;
+     }
+   }
