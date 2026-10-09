@@ -1,2320 +1,4758 @@
 /* Importa as fontes DM Sans e Playfair Display do Google Fonts. */
+
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600;1,700&display=swap");
 
+
+
 /* ==================================================
+
    1. VARIÁVEIS GLOBAIS
+
    ================================================== */
+
+
 
 /* Cores, bordas e sombras reutilizadas em todo o projeto.
+
    Assim, é possível mudar a identidade visual em um só lugar. */
+
 :root {
+
   --ink: #352720;
+
   --ink-soft: #6f5a4d;
+
   --brown: #5b3828;
+
   --brown-dark: #3f271d;
+
   --terracotta: #a15f42;
+
   --cream: #f7f1e7;
+
   --paper: #fffdf9;
+
   --sand: #e8dccb;
+
   --sand-light: #f1e8dc;
+
   --green: #52705b;
+
   --green-soft: #dfe9df;
+
   --red: #a84e45;
+
   --red-soft: #f3dfda;
+
   --border: rgba(91, 56, 40, 0.15);
+
   --shadow: 0 18px 50px rgba(70, 43, 30, 0.1);
+
   --shadow-small: 0 8px 24px rgba(70, 43, 30, 0.08);
+
 }
 
+
+
 /* ==================================================
+
    2. CONFIGURAÇÕES GERAIS
+
    ================================================== */
+
+
 
 /* Faz com que largura e altura incluam o padding e a borda. */
+
 * {
+
   box-sizing: border-box;
+
 }
+
+
 
 /* Ativa a rolagem suave da página. */
+
 html {
+
   scroll-behavior: smooth;
+
 }
+
+
 
 /* Estilização principal da página. */
+
 body {
+
   margin: 0;
+
   min-width: 320px;
+
   min-height: 100vh;
+
   color: var(--ink);
+
   background: var(--cream);
+
   font-family: "DM Sans", sans-serif;
+
   -webkit-font-smoothing: antialiased;
+
 }
+
+
 
 /* Faz os campos e botões herdarem a fonte do documento. */
+
 button, input, textarea {
+
   font: inherit;
+
 }
+
+
 
 /* Faz os botões herdarem a cor principal do texto. */
+
 button {
+
   color: inherit;
+
 }
+
+
 
 /* Remove o destaque padrão de toque em celulares. */
+
 button, a {
+
   -webkit-tap-highlight-color: transparent;
+
 }
+
+
 
 /* Faz os elementos SVG serem exibidos como blocos. */
+
 svg {
+
   display: block;
+
 }
+
+
 
 /* Esconde elementos que tenham o atributo hidden. */
+
 [hidden] {
+
   display: none !important;
+
 }
 
+
+
 /* ==================================================
+
    3. ACESSIBILIDADE E ELEMENTOS DECORATIVOS
+
    ================================================== */
+
+
 
 /* Link que permite pular diretamente para o conteúdo principal.
+
    Ele aparece quando recebe foco pelo teclado. */
+
 .skip-link {
+
   position: fixed;
+
   top: 8px;
+
   left: 8px;
+
   z-index: 100;
+
   padding: 10px 16px;
+
   color: white;
+
   background: var(--brown);
+
   border-radius: 8px;
+
   transform: translateY(-150%);
+
 }
+
+
 
 /* Traz o link de acessibilidade para a tela quando focado. */
+
 .skip-link:focus {
+
   transform: none;
+
 }
+
+
 
 /* Círculos decorativos usados no fundo da página. */
+
 .ambient {
+
   position: fixed;
+
   z-index: -1;
+
   width: 420px;
+
   height: 420px;
+
   border-radius: 50%;
+
   filter: blur(2px);
+
   pointer-events: none;
+
 }
+
+
 
 /* Posiciona e colore o primeiro círculo decorativo. */
+
 .ambient-one {
+
   right: -180px;
+
   top: 100px;
+
   background: rgba(190, 145, 111, 0.12);
+
 }
+
+
 
 /* Posiciona e colore o segundo círculo decorativo. */
+
 .ambient-two {
+
   left: -210px;
+
   bottom: -120px;
+
   background: rgba(150, 111, 82, 0.1);
+
 }
 
+
+
 /* ==================================================
+
    4. CABEÇALHO E IDENTIDADE VISUAL
+
    ================================================== */
+
+
 
 /* Organiza o cabeçalho e limita sua largura máxima. */
+
 .site-header {
+
   width: min(1320px, calc(100% - 48px));
+
   height: 86px;
+
   margin: 0 auto;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   border-bottom: 1px solid var(--border);
+
 }
+
+
 
 /* Alinha o símbolo e o nome da marca. */
+
 .brand {
+
   display: flex;
+
   align-items: center;
+
   gap: 11px;
+
   color: inherit;
+
   text-decoration: none;
+
 }
+
+
 
 /* Cria o quadrado estilizado que contém o símbolo da marca. */
+
 .brand-mark {
+
   display: grid;
+
   place-items: center;
+
   width: 45px;
+
   height: 45px;
+
   color: var(--paper);
+
   background: var(--brown);
+
   border-radius: 14px 14px 14px 5px;
+
   box-shadow: 0 8px 18px rgba(91, 56, 40, 0.2);
+
 }
+
+
 
 /* Define o tamanho e o traçado do ícone da marca. */
+
 .brand-mark svg {
+
   width: 30px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 1.7;
+
   stroke-linecap: round;
+
 }
+
+
 
 /* Estiliza o nome principal da marca. */
+
 .brand strong {
+
   display: block;
+
   font: 600 22px/1 "Playfair Display", serif;
+
   letter-spacing: -0.5px;
+
 }
+
+
 
 /* Estiliza o pequeno texto abaixo do nome da marca. */
+
 .brand small {
+
   display: block;
+
   margin-top: 4px;
+
   color: var(--terracotta);
+
   font-size: 8px;
+
   font-weight: 700;
+
   letter-spacing: 3.4px;
+
 }
+
+
 
 /* Agrupa os botões do cabeçalho. */
+
 .header-actions {
+
   display: flex;
+
   align-items: center;
+
   gap: 10px;
+
 }
+
+
 
 /* Destaca o botão de navegação quando a tela de recordes está ativa. */
+
 .records-nav.active {
+
   color: white;
+
   background: var(--brown);
+
 }
+
+
 
 /* Estilo geral dos botões que exibem apenas ícones. */
+
 .icon-button {
+
   width: 42px;
+
   height: 42px;
+
   padding: 0;
+
   display: grid;
+
   place-items: center;
+
   border: 1px solid var(--border);
+
   border-radius: 12px;
+
   background: rgba(255, 253, 249, 0.55);
+
   cursor: pointer;
+
   transition: 180ms ease;
+
 }
+
+
 
 /* Efeito visual ao passar o mouse sobre um botão de ícone. */
+
 .icon-button:hover {
+
   background: white;
+
   border-color: rgba(91, 56, 40, 0.3);
+
   transform: translateY(-1px);
+
 }
 
+
+
 /* Define o tamanho e o traçado dos ícones dos botões. */
+
 .icon-button svg {
+
   width: 20px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 1.8;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Controla qual ícone de som aparece quando o áudio está desligado. */
+
 .sound-off,
+
 .muted .sound-on {
+
   display: none;
+
 }
+
+
 
 .muted .sound-off {
+
   display: block;
+
 }
 
+
+
 /* ==================================================
+
    5. ESTRUTURA PRINCIPAL E ANIMAÇÕES
+
    ================================================== */
+
+
 
 /* Define a largura, as margens e o espaçamento do conteúdo principal. */
+
 main {
+
   width: min(1320px, calc(100% - 48px));
+
   margin: 0 auto;
+
   padding: 54px 0 70px;
+
 }
+
+
 
 /* Aplica uma animação de entrada às telas. */
+
 .screen {
+
   animation: rise 450ms cubic-bezier(.2,.75,.3,1) both;
+
 }
+
+
 
 /* Animação que faz o conteúdo surgir levemente de baixo para cima. */
+
 @keyframes rise {
+
   from {
+
     opacity: 0;
+
     transform: translateY(12px);
+
   }
+
 }
 
+
+
 /* ==================================================
+
    6. TELA INICIAL E APRESENTAÇÃO
+
    ================================================== */
+
+
 
 /* Organiza a apresentação em duas colunas. */
+
 .hero {
+
   display: grid;
+
   grid-template-columns: 1.4fr 0.8fr;
+
   align-items: end;
+
   gap: 60px;
+
   margin-bottom: 42px;
+
 }
+
+
 
 /* Estilo dos pequenos textos que aparecem acima dos títulos. */
+
 .eyebrow,
+
 .overline {
+
   margin: 0;
+
   color: var(--terracotta);
+
   text-transform: uppercase;
+
   letter-spacing: 2.4px;
+
   font-size: 10px;
+
   font-weight: 700;
+
 }
+
+
 
 /* Alinha o texto de apresentação e seu pequeno detalhe decorativo. */
+
 .eyebrow {
+
   display: flex;
+
   align-items: center;
+
   gap: 10px;
+
 }
+
+
 
 /* Cria a linha decorativa ao lado do texto de apresentação. */
+
 .eyebrow span {
+
   width: 30px;
+
   height: 1px;
+
   background: currentColor;
+
 }
+
+
 
 /* Estiliza o título principal da página. */
+
 h1 {
+
   max-width: 760px;
+
   margin: 13px 0 16px;
+
   font: 600 clamp(44px, 5vw, 70px)/0.98 "Playfair Display", serif;
+
   letter-spacing: -2.5px;
+
 }
+
+
 
 /* Dá destaque a uma parte do título. */
+
 h1 em {
+
   color: var(--terracotta);
+
   font-weight: 600;
+
 }
+
+
 
 /* Estiliza o texto descritivo da apresentação. */
+
 .hero-description {
+
   max-width: 610px;
+
   margin: 0;
+
   color: var(--ink-soft);
+
   font-size: 16px;
+
   line-height: 1.7;
+
 }
+
+
 
 /* Cartão que contém as estatísticas gerais. */
+
 .stats-card {
+
   padding: 25px 28px;
+
   background: rgba(255, 253, 249, 0.72);
+
   border: 1px solid var(--border);
+
   border-radius: 20px 20px 20px 6px;
+
   box-shadow: var(--shadow-small);
+
   backdrop-filter: blur(8px);
+
 }
+
+
 
 /* Estiliza o título do cartão de estatísticas. */
+
 .stats-title {
+
   margin: 0 0 17px;
+
   color: var(--ink-soft);
+
   font-size: 11px;
+
   font-weight: 700;
+
   letter-spacing: 1.5px;
+
   text-transform: uppercase;
+
 }
+
+
 
 /* Divide as estatísticas em três colunas iguais. */
+
 .stats-grid {
+
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
 }
+
+
 
 /* Adiciona separadores entre as estatísticas. */
+
 .stats-grid div {
+
   padding: 0 16px;
+
   border-left: 1px solid var(--border);
+
 }
+
+
 
 /* Remove o separador e o espaço da primeira estatística. */
+
 .stats-grid div:first-child {
+
   padding-left: 0;
+
   border: 0;
+
 }
+
+
 
 /* Estiliza os números das estatísticas. */
+
 .stats-grid strong {
+
   display: block;
+
   font: 600 27px/1 "Playfair Display", serif;
+
 }
+
+
 
 /* Estiliza os nomes das estatísticas. */
+
 .stats-grid span {
+
   display: block;
+
   margin-top: 7px;
+
   color: var(--ink-soft);
+
   font-size: 10px;
+
   text-transform: uppercase;
+
   letter-spacing: .7px;
+
 }
 
+
+
 /* ==================================================
+
    7. CONFIGURAÇÃO DO JOGO E CATEGORIAS
+
    ================================================== */
+
+
 
 /* Divide a área de configuração entre categorias e barra lateral. */
+
 .setup-layout {
+
   display: grid;
+
   grid-template-columns: minmax(0, 1.55fr) minmax(310px, .75fr);
+
   gap: 22px;
+
   align-items: start;
+
 }
+
+
 
 /* Organiza os cartões da barra lateral verticalmente. */
+
 .setup-sidebar {
+
   display: grid;
+
   gap: 22px;
+
 }
+
+
 
 /* Estilo padrão dos painéis brancos. */
+
 .panel {
+
   background: var(--paper);
+
   border: 1px solid var(--border);
+
   border-radius: 24px 24px 24px 8px;
+
   box-shadow: var(--shadow);
+
 }
+
+
 
 /* Define o espaçamento interno do painel de categorias. */
+
 .category-panel {
+
   padding: 30px;
+
 }
+
+
 
 /* Alinha os títulos das seções e seus elementos internos. */
+
 .section-heading,
+
 .section-heading > div {
+
   display: flex;
+
   align-items: center;
+
 }
+
+
 
 /* Distribui o conteúdo dos cabeçalhos das seções. */
+
 .section-heading {
+
   justify-content: space-between;
+
   margin-bottom: 24px;
+
 }
+
+
 
 /* Espaçamento entre o número da etapa e o título. */
+
 .section-heading > div {
+
   gap: 13px;
+
 }
+
+
 
 /* Estiliza o quadrado com o número da etapa. */
+
 .step-number {
+
   display: grid;
+
   place-items: center;
+
   flex: 0 0 auto;
+
   width: 40px;
+
   height: 40px;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border-radius: 12px;
+
   font: 600 14px "Playfair Display", serif;
+
 }
+
+
 
 /* Estilo dos títulos de segundo nível. */
+
 h2 {
+
   margin: 4px 0 0;
+
   font: 600 22px/1.1 "Playfair Display", serif;
+
 }
+
+
 
 /* Estiliza os indicadores de quantidade e pré-visualização. */
+
 .category-count,
+
 .preview-header > span {
+
   padding: 7px 11px;
+
   color: var(--ink-soft);
+
   background: var(--sand-light);
+
   border-radius: 100px;
+
   font-size: 11px;
+
   font-weight: 600;
+
 }
+
+
 
 /* Campo de pesquisa com ícone e texto. */
+
 .search-box {
+
   height: 46px;
+
   display: flex;
+
   align-items: center;
+
   gap: 10px;
+
   padding: 0 14px;
+
   background: #faf7f2;
+
   border: 1px solid var(--border);
+
   border-radius: 13px;
+
   transition: 180ms ease;
+
 }
+
+
 
 /* Destaca o campo de pesquisa quando o usuário clica nele. */
+
 .search-box:focus-within {
+
   background: white;
+
   border-color: var(--terracotta);
+
   box-shadow: 0 0 0 3px rgba(161, 95, 66, .1);
+
 }
+
+
 
 /* Estiliza o ícone dentro do campo de pesquisa. */
+
 .search-box svg {
+
   flex: 0 0 auto;
+
   width: 18px;
+
   fill: none;
+
   stroke: var(--ink-soft);
+
   stroke-width: 1.8;
+
   stroke-linecap: round;
+
 }
+
+
 
 /* Faz o campo de texto ocupar o espaço disponível. */
+
 .search-box input {
+
   width: 100%;
+
   border: 0;
+
   outline: 0;
+
   color: var(--ink);
+
   background: transparent;
+
   font-size: 13px;
+
 }
+
+
 
 /* Define a cor dos textos de exemplo dos campos. */
+
 .search-box input::placeholder,
+
 input::placeholder,
+
 textarea::placeholder {
+
   color: #a9998e;
+
 }
+
+
 
 /* Organiza os cartões das categorias em uma grade rolável. */
+
 .category-grid {
+
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 10px;
+
   margin-top: 16px;
+
   max-height: 422px;
+
   overflow: auto;
+
   padding: 2px;
+
 }
+
+
 
 /* Estilo dos cartões individuais de categoria. */
+
 .category-card {
+
   position: relative;
+
   min-height: 79px;
+
   padding: 13px;
+
   display: flex;
+
   align-items: center;
+
   gap: 11px;
+
   text-align: left;
+
   background: #faf7f2;
+
   border: 1px solid transparent;
+
   border-radius: 15px;
+
   cursor: pointer;
+
   transition: 160ms ease;
+
 }
+
+
 
 /* Efeito ao passar o mouse sobre um cartão de categoria. */
+
 .category-card:hover {
+
   background: var(--sand-light);
+
   transform: translateY(-1px);
+
 }
+
+
 
 /* Aparência da categoria que está selecionada. */
+
 .category-card.active {
+
   background: var(--brown);
+
   border-color: var(--brown);
+
   color: white;
+
   box-shadow: 0 8px 20px rgba(91, 56, 40, .2);
+
 }
+
+
 
 /* Caixa que contém o símbolo da categoria. */
+
 .category-symbol {
+
   flex: 0 0 auto;
+
   width: 38px;
+
   height: 38px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--brown);
+
   background: var(--sand);
+
   border-radius: 11px;
+
   font: 600 15px "Playfair Display", serif;
+
 }
+
+
 
 /* Altera as cores do símbolo na categoria selecionada. */
+
 .category-card.active .category-symbol {
+
   color: white;
+
   background: rgba(255,255,255,.14);
+
 }
+
+
 
 /* Estiliza o nome da categoria e limita seu tamanho. */
+
 .category-card strong {
+
   display: block;
+
   max-width: 105px;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
+
   font-size: 12px;
+
   white-space: nowrap;
+
 }
+
+
 
 /* Estiliza a informação secundária do cartão. */
+
 .category-card small {
+
   display: block;
+
   margin-top: 4px;
+
   color: var(--ink-soft);
+
   font-size: 9px;
+
 }
+
+
 
 /* Ajusta a cor do texto secundário da categoria selecionada. */
+
 .category-card.active small {
+
   color: rgba(255,255,255,.65);
+
 }
+
+
 
 /* Posiciona os botões de ação dentro dos cartões. */
+
 .card-actions {
+
   position: absolute;
+
   top: 5px;
+
   right: 5px;
+
   display: none;
+
   gap: 2px;
+
 }
+
+
 
 /* Mostra as ações quando o cartão recebe foco ou o mouse passa por ele. */
+
 .category-card:hover .card-actions,
+
 .category-card:focus-within .card-actions {
+
   display: flex;
+
 }
+
+
 
 /* Estilo dos pequenos botões de ação dos cartões. */
+
 .card-action {
+
   width: 23px;
+
   height: 23px;
+
   padding: 0;
+
   display: grid;
+
   place-items: center;
+
   border: 0;
+
   border-radius: 7px;
+
   color: inherit;
+
   background: rgba(255,255,255,.72);
+
   cursor: pointer;
+
   font-size: 11px;
+
 }
+
+
 
 /* Ajusta o fundo dos botões de ação na categoria selecionada. */
+
 .category-card.active .card-action {
+
   background: rgba(255,255,255,.16);
+
 }
+
+
 
 /* Mensagem exibida quando nenhum resultado é encontrado. */
+
 .empty-state {
+
   grid-column: 1 / -1;
+
   padding: 35px;
+
   text-align: center;
+
   color: var(--ink-soft);
+
   font-size: 13px;
+
 }
 
+
+
 /* ==================================================
+
    8. PRÉ-VISUALIZAÇÃO DE PALAVRAS E DIFICULDADE
+
    ================================================== */
+
+
 
 /* Define o espaçamento dos painéis de pré-visualização e jogo. */
+
 .word-preview,
+
 .play-panel {
+
   padding: 25px;
+
 }
+
+
 
 /* Organiza o cabeçalho da pré-visualização. */
+
 .preview-header {
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   margin-bottom: 18px;
+
 }
+
+
 
 /* Reduz a altura do campo de pesquisa compacto. */
+
 .search-box.compact {
+
   height: 40px;
+
 }
+
+
 
 /* Área que apresenta as palavras da categoria selecionada. */
+
 .word-list {
+
   min-height: 128px;
+
   max-height: 164px;
+
   margin-top: 13px;
+
   padding-right: 5px;
+
   display: flex;
+
   flex-wrap: wrap;
+
   align-content: flex-start;
+
   gap: 7px;
+
   overflow: auto;
+
 }
+
+
 
 /* Aparência de cada palavra exibida na pré-visualização. */
+
 .word-pill {
+
   padding: 6px 9px;
+
   color: var(--ink-soft);
+
   background: var(--sand-light);
+
   border-radius: 8px;
+
   font-size: 10px;
+
   font-weight: 600;
+
   text-transform: lowercase;
+
 }
+
+
 
 /* Alinha o cabeçalho simples à esquerda. */
+
 .section-heading.simple {
+
   justify-content: flex-start;
+
 }
+
+
 
 /* Divide as opções de dificuldade em três colunas. */
+
 .difficulty-options {
+
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 7px;
+
 }
+
+
 
 /* Estilo dos botões de dificuldade. */
+
 .difficulty {
+
   padding: 11px 5px;
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   gap: 7px;
+
   background: #faf7f2;
+
   border: 1px solid transparent;
+
   border-radius: 13px;
+
   cursor: pointer;
+
   transition: 160ms;
+
 }
+
+
 
 /* Efeito ao passar o mouse sobre uma dificuldade. */
+
 .difficulty:hover {
+
   background: var(--sand-light);
+
 }
+
+
 
 /* Aparência da dificuldade selecionada. */
+
 .difficulty.active {
+
   border-color: var(--terracotta);
+
   background: #fff9f4;
+
   box-shadow: inset 0 0 0 1px var(--terracotta);
+
 }
+
+
 
 /* Círculo decorativo que contém o símbolo da dificuldade. */
+
 .difficulty-icon {
+
   width: 28px;
+
   height: 28px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border-radius: 50%;
+
   font: 600 11px "Playfair Display", serif;
+
 }
+
+
 
 /* Faz os textos das opções de dificuldade ocuparem linhas separadas. */
+
 .difficulty strong,
+
 .difficulty small {
+
   display: block;
+
 }
+
+
 
 /* Estilo do nome da dificuldade. */
+
 .difficulty strong {
+
   font-size: 11px;
+
 }
+
+
 
 /* Estilo do texto auxiliar da dificuldade. */
+
 .difficulty small {
+
   margin-top: 2px;
+
   color: var(--ink-soft);
+
   font-size: 8px;
+
 }
 
+
+
 /* ==================================================
+
    9. BOTÕES
+
    ================================================== */
+
+
 
 /* Estilo base compartilhado pelos botões do projeto. */
+
 .button {
+
   min-height: 44px;
+
   padding: 0 18px;
+
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
+
   gap: 9px;
+
   border: 1px solid transparent;
+
   border-radius: 12px;
+
   font-weight: 700;
+
   font-size: 12px;
+
   cursor: pointer;
+
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+
 }
+
+
 
 /* Efeito de elevação ao passar o mouse. */
+
 .button:hover {
+
   transform: translateY(-1px);
+
 }
+
+
 
 /* Define o tamanho e o traçado dos ícones dos botões. */
+
 .button svg {
+
   width: 18px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 1.8;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Botão principal, usado para ações de destaque. */
+
 .button-primary {
+
   color: white;
+
   background: var(--brown);
+
   box-shadow: 0 9px 22px rgba(91, 56, 40, .2);
+
 }
+
+
 
 /* Altera a cor e a sombra do botão principal ao passar o mouse. */
+
 .button-primary:hover {
+
   background: var(--brown-dark);
+
   box-shadow: 0 11px 24px rgba(91, 56, 40, .27);
+
 }
+
+
 
 /* Botão secundário com fundo claro. */
+
 .button-secondary {
+
   color: var(--brown);
+
   background: var(--sand-light);
+
   border-color: var(--border);
+
 }
+
+
 
 /* Efeito do botão secundário ao passar o mouse. */
+
 .button-secondary:hover {
+
   background: var(--sand);
+
 }
+
+
 
 /* Botão discreto, sem cor de fundo. */
+
 .button-ghost {
+
   color: var(--brown);
+
   background: transparent;
+
   border-color: var(--border);
+
 }
+
+
 
 /* Reduz a altura dos botões menores. */
+
 .button-small {
+
   min-height: 40px;
+
 }
+
+
 
 /* Faz o botão de iniciar ocupar toda a largura do painel. */
+
 .start-button {
+
   width: 100%;
+
   margin-top: 17px;
+
 }
 
+
+
 /* ==================================================
+
    10. TELA DE RECORDES
+
    ================================================== */
+
+
 
 /* Limita a largura da tela de recordes e centraliza seu conteúdo. */
+
 .records-screen {
+
   max-width: 1140px;
+
   margin: 0 auto;
+
 }
+
+
 
 /* Organiza o título e a ilustração do cabeçalho dos recordes. */
+
 .records-heading {
+
   min-height: 230px;
+
   margin-bottom: 30px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   gap: 40px;
+
 }
+
+
 
 /* Ajusta os espaçamentos do título dos recordes. */
+
 .records-heading h1 {
+
   margin-top: 15px;
+
   margin-bottom: 14px;
+
 }
+
+
 
 /* Adiciona espaço abaixo do botão de voltar. */
+
 .records-heading .back-button {
+
   margin-bottom: 30px;
+
 }
+
+
 
 /* Cria o círculo decorativo com o símbolo dos recordes. */
+
 .record-emblem {
+
   flex: 0 0 auto;
+
   width: 170px;
+
   height: 170px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border: 1px solid var(--border);
+
   border-radius: 50% 50% 50% 35px;
+
   box-shadow: var(--shadow);
+
 }
+
+
 
 /* Define o tamanho e o traçado do símbolo dos recordes. */
+
 .record-emblem svg {
+
   width: 88px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 2;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Organiza os cartões de estatísticas em quatro colunas. */
+
 .record-grid {
+
   display: grid;
+
   grid-template-columns: repeat(4, 1fr);
+
   gap: 14px;
+
   margin-bottom: 22px;
+
 }
+
+
 
 /* Aparência padrão dos cartões de recordes. */
+
 .record-card {
+
   position: relative;
+
   min-height: 190px;
+
   padding: 23px;
+
   overflow: hidden;
+
   background: var(--paper);
+
   border: 1px solid var(--border);
+
   border-radius: 20px 20px 20px 7px;
+
   box-shadow: var(--shadow-small);
+
   transition: transform 180ms, box-shadow 180ms;
+
 }
+
+
 
 /* Efeito de elevação dos cartões de recordes. */
+
 .record-card:hover {
+
   transform: translateY(-3px);
+
   box-shadow: var(--shadow);
+
 }
+
+
 
 /* Destaca um cartão específico de recorde com fundo escuro. */
+
 .record-card.featured {
+
   color: white;
+
   background: var(--brown);
+
   border-color: var(--brown);
+
 }
+
+
 
 /* Adiciona um círculo decorativo ao cartão destacado. */
+
 .record-card.featured::after {
+
   content: "";
+
   position: absolute;
+
   right: -34px;
+
   bottom: -52px;
+
   width: 130px;
+
   height: 130px;
+
   border: 22px solid rgba(255,255,255,.05);
+
   border-radius: 50%;
+
 }
+
+
 
 /* Caixa dos ícones dos cartões de recordes. */
+
 .record-icon {
+
   width: 38px;
+
   height: 38px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border-radius: 12px;
+
 }
+
+
 
 /* Altera as cores do ícone no cartão destacado. */
+
 .featured .record-icon {
+
   color: white;
+
   background: rgba(255,255,255,.13);
+
 }
+
+
 
 /* Define o tamanho e o traçado dos ícones de recordes. */
+
 .record-icon svg {
+
   width: 20px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 1.8;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Estiliza os rótulos dos cartões. */
+
 .record-card > p {
+
   margin: 20px 0 5px;
+
   color: var(--ink-soft);
+
   font-size: 10px;
+
   font-weight: 700;
+
   letter-spacing: 1px;
+
   text-transform: uppercase;
+
 }
+
+
 
 /* Ajusta os rótulos e textos do cartão destacado. */
+
 .record-card.featured > p,
+
 .record-card.featured > small {
+
   color: rgba(255,255,255,.7);
+
 }
+
+
 
 /* Estiliza os números dos cartões. */
+
 .record-card > strong {
+
   display: block;
+
   font: 600 32px "Playfair Display", serif;
+
 }
+
+
 
 /* Ajusta o tamanho do texto menor dentro dos números. */
+
 .record-card > strong small {
+
   font: 500 11px "DM Sans", sans-serif;
+
 }
+
+
 
 /* Estiliza as descrições pequenas dos cartões. */
+
 .record-card > small {
+
   display: block;
+
   margin-top: 7px;
+
   color: var(--ink-soft);
+
   font-size: 9px;
+
   line-height: 1.4;
+
 }
+
+
 
 /* Painel que contém o histórico de partidas. */
+
 .history-panel {
+
   padding: 28px;
+
 }
+
+
 
 /* Organiza o título e as ações do histórico. */
+
 .history-heading {
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   margin-bottom: 24px;
+
 }
+
+
 
 /* Define a estrutura das colunas do cabeçalho e das linhas do histórico. */
+
 .history-labels,
+
 .history-row {
+
   display: grid;
+
   grid-template-columns: 2fr .8fr .8fr .7fr;
+
   align-items: center;
+
   gap: 14px;
+
 }
+
+
 
 /* Estiliza os nomes das colunas do histórico. */
+
 .history-labels {
+
   padding: 0 15px 10px;
+
   color: var(--ink-soft);
+
   font-size: 8px;
+
   font-weight: 700;
+
   letter-spacing: 1px;
+
   text-transform: uppercase;
+
 }
+
+
 
 /* Alinha à direita o último rótulo da tabela. */
+
 .history-labels span:last-child {
+
   text-align: right;
+
 }
+
+
 
 /* Organiza as partidas em uma lista vertical. */
+
 .records-history {
+
   display: grid;
+
   gap: 7px;
+
 }
+
+
 
 /* Aparência de cada linha do histórico. */
+
 .history-row {
+
   min-height: 66px;
+
   padding: 10px 15px;
+
   background: #faf7f2;
+
   border: 1px solid transparent;
+
   border-radius: 13px;
+
 }
+
+
 
 /* Destaca a primeira partida exibida no histórico. */
+
 .history-row:first-child {
+
   border-color: rgba(161,95,66,.25);
+
   background: #fff9f4;
+
 }
+
+
 
 /* Agrupa a posição, o nome e os detalhes da partida. */
+
 .history-identity {
+
   display: flex;
+
   align-items: center;
+
   gap: 12px;
+
   min-width: 0;
+
 }
+
+
 
 /* Estiliza o indicador de posição no histórico. */
+
 .history-rank {
+
   flex: 0 0 auto;
+
   width: 30px;
+
   height: 30px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border-radius: 9px;
+
   font: 600 12px "Playfair Display", serif;
+
 }
+
+
 
 /* Evita que nomes e datas ultrapassem o espaço disponível. */
+
 .history-identity strong,
+
 .history-identity small {
+
   display: block;
+
   overflow: hidden;
+
   text-overflow: ellipsis;
+
   white-space: nowrap;
+
 }
+
+
 
 /* Estiliza o nome ou a categoria da partida. */
+
 .history-identity strong {
+
   font-size: 12px;
+
 }
+
+
 
 /* Estiliza as informações secundárias da partida. */
+
 .history-identity small,
+
 .history-date {
+
   margin-top: 3px;
+
   color: var(--ink-soft);
+
   font-size: 9px;
+
 }
+
+
 
 /* Aparência da etiqueta de dificuldade no histórico. */
+
 .history-difficulty {
+
   width: max-content;
+
   padding: 5px 8px;
+
   color: var(--ink-soft);
+
   background: var(--sand-light);
+
   border-radius: 100px;
+
   font-size: 9px;
+
   font-weight: 700;
+
 }
+
+
 
 /* Destaca a pontuação da partida. */
+
 .history-score {
+
   text-align: right;
+
   color: var(--terracotta);
+
   font: 600 18px "Playfair Display", serif;
+
 }
+
+
 
 /* Mensagem exibida quando não existem partidas no histórico. */
+
 .history-empty {
+
   padding: 48px 20px;
+
   text-align: center;
+
   color: var(--ink-soft);
+
   background: #faf7f2;
+
   border-radius: 14px;
+
 }
+
+
 
 /* Estiliza o ícone da mensagem de histórico vazio. */
+
 .history-empty svg {
+
   width: 34px;
+
   margin: 0 auto 12px;
+
   fill: none;
+
   stroke: var(--terracotta);
+
   stroke-width: 1.5;
+
 }
+
+
 
 /* Coloca os textos da mensagem em linhas separadas. */
+
 .history-empty strong,
+
 .history-empty small {
+
   display: block;
+
 }
+
+
 
 /* Estiliza o título da mensagem de histórico vazio. */
+
 .history-empty strong {
+
   color: var(--ink);
+
   font: 600 16px "Playfair Display", serif;
+
 }
+
+
 
 /* Estiliza a descrição da mensagem de histórico vazio. */
+
 .history-empty small {
+
   margin-top: 5px;
+
   font-size: 10px;
+
 }
 
+
+
 /* ==================================================
+
    11. TELA DA PARTIDA
+
    ================================================== */
+
+
 
 /* Limita e centraliza a área do jogo. */
+
 .game-screen {
+
   max-width: 1140px;
+
   margin: 0 auto;
+
 }
+
+
 
 /* Organiza o topo da partida em três áreas. */
+
 .game-topbar {
+
   display: grid;
+
   grid-template-columns: 1fr auto 1fr;
+
   align-items: center;
+
   margin-bottom: 26px;
+
 }
+
+
 
 /* Estilo dos botões de voltar e de texto. */
+
 .back-button,
+
 .text-button {
+
   width: max-content;
+
   padding: 8px 0;
+
   display: inline-flex;
+
   align-items: center;
+
   gap: 7px;
+
   border: 0;
+
   color: var(--ink-soft);
+
   background: transparent;
+
   cursor: pointer;
+
   font-size: 12px;
+
   font-weight: 600;
+
 }
+
+
 
 /* Posiciona o botão de texto no lado direito. */
+
 .text-button {
+
   justify-self: end;
+
 }
+
+
 
 /* Muda a cor dos botões ao passar o mouse. */
+
 .back-button:hover,
+
 .text-button:hover {
+
   color: var(--brown);
+
 }
+
+
 
 /* Define o tamanho e o traçado dos ícones dos botões de navegação. */
+
 .back-button svg,
+
 .text-button svg {
+
   width: 18px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 1.8;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Agrupa as etiquetas de categoria e dificuldade. */
+
 .game-chips {
+
   display: flex;
+
   gap: 7px;
+
 }
+
+
 
 /* Estilo da etiqueta principal da partida. */
+
 .chip {
+
   padding: 8px 13px;
+
   color: white;
+
   background: var(--terracotta);
+
   border-radius: 100px;
+
   font-size: 10px;
+
   font-weight: 700;
+
   text-transform: uppercase;
+
   letter-spacing: 1px;
+
 }
+
+
 
 /* Versão contornada da etiqueta. */
+
 .chip-outline {
+
   color: var(--ink-soft);
+
   background: transparent;
+
   border: 1px solid var(--border);
+
 }
+
+
 
 /* Divide o jogo entre o desenho da forca e o tabuleiro. */
+
 .game-layout {
+
   display: grid;
+
   grid-template-columns: 300px 1fr;
+
   gap: 22px;
+
 }
+
+
 
 /* Define o espaçamento interno do cartão da forca. */
+
 .gallows-card {
+
   padding: 25px;
+
 }
+
+
 
 /* Organiza o título e o contador de tentativas. */
+
 .attempts-heading {
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
 }
+
+
 
 /* Estiliza o número de tentativas restantes. */
+
 .attempts-heading strong {
+
   width: 43px;
+
   height: 43px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border-radius: 13px;
+
   font: 600 21px "Playfair Display", serif;
+
 }
+
+
 
 /* Centraliza a ilustração da forca. */
+
 .gallows {
+
   height: 320px;
+
   display: grid;
+
   place-items: center;
+
 }
+
+
 
 /* Define o tamanho e o traçado do desenho SVG da forca. */
+
 .gallows svg {
+
   width: 100%;
+
   max-height: 285px;
+
   fill: none;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Define a cor e a espessura da madeira da forca. */
+
 .gallows .wood {
+
   stroke: #92735e;
+
   stroke-width: 6;
+
 }
+
+
 
 /* Define a cor e a espessura das partes do boneco. */
+
 .gallows .figure {
+
   stroke: var(--brown);
+
   stroke-width: 5;
+
 }
+
+
 
 /* Esconde as partes do desenho até que sejam ativadas. */
+
 .gallows [data-part] {
+
   opacity: 0;
+
   transform-origin: center;
+
   transition: opacity 250ms, transform 250ms;
+
   transform: scale(.8);
+
 }
+
+
 
 /* Exibe cada parte do desenho quando ela recebe a classe visible. */
+
 .gallows [data-part].visible {
+
   opacity: 1;
+
   transform: scale(1);
+
 }
+
+
 
 /* Organiza os indicadores de erros em uma linha flexível. */
+
 .mistake-dots {
+
   display: flex;
+
   justify-content: center;
+
   flex-wrap: wrap;
+
   gap: 6px;
+
 }
+
+
 
 /* Aparência dos pequenos círculos que representam as tentativas. */
+
 .mistake-dot {
+
   width: 8px;
+
   height: 8px;
+
   background: var(--sand);
+
   border-radius: 50%;
+
   transition: 200ms;
+
 }
+
+
 
 /* Colore os indicadores de tentativas já utilizadas. */
+
 .mistake-dot.used {
+
   background: var(--red);
+
   transform: scale(1.2);
+
 }
+
+
 
 /* Define o espaçamento interno do tabuleiro. */
+
 .game-board {
+
   padding: 30px 38px 32px;
+
 }
+
+
 
 /* Organiza os indicadores de pontuação e tempo. */
+
 .game-metrics {
+
   display: flex;
+
   justify-content: flex-end;
+
   gap: 28px;
+
 }
+
+
 
 /* Alinha o ícone e os textos de cada indicador. */
+
 .game-metrics > div {
+
   display: flex;
+
   align-items: center;
+
   gap: 9px;
+
 }
+
+
 
 /* Caixa que contém o ícone de cada indicador. */
+
 .metric-icon {
+
   width: 34px;
+
   height: 34px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border-radius: 10px;
+
 }
+
+
 
 /* Define o tamanho e o traçado dos ícones dos indicadores. */
+
 .metric-icon svg {
+
   width: 18px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 1.7;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Coloca os rótulos e os valores em linhas separadas. */
+
 .game-metrics small,
+
 .game-metrics strong {
+
   display: block;
+
 }
+
+
 
 /* Estiliza os rótulos dos indicadores. */
+
 .game-metrics small {
+
   color: var(--ink-soft);
+
   font-size: 8px;
+
   text-transform: uppercase;
+
   letter-spacing: 1px;
+
 }
+
+
 
 /* Estiliza os valores dos indicadores. */
+
 .game-metrics strong {
+
   margin-top: 2px;
+
   font-size: 13px;
+
 }
+
+
 
 /* Centraliza a palavra e reserva espaço para ela. */
+
 .word-area {
+
   min-height: 190px;
+
   padding: 36px 0 25px;
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
+
 }
+
+
 
 /* Estiliza o texto acima das letras ocultas. */
+
 .word-area > p:first-child {
+
   margin: 0 0 20px;
+
   color: var(--ink-soft);
+
   font-size: 11px;
+
   letter-spacing: .5px;
+
 }
+
+
 
 /* Organiza as letras e os espaços da palavra. */
+
 .masked-word {
+
   display: flex;
+
   justify-content: center;
+
   flex-wrap: wrap;
+
   gap: 8px;
+
 }
+
+
 
 /* Cria os espaços onde as letras da palavra serão exibidas. */
+
 .letter-slot {
+
   width: clamp(25px, 3.2vw, 38px);
+
   height: 47px;
+
   display: grid;
+
   place-items: center;
+
   border-bottom: 2px solid var(--brown);
+
   font: 600 clamp(19px, 2.2vw, 27px) "Playfair Display", serif;
+
   text-transform: uppercase;
+
   transition: 200ms;
+
 }
+
+
 
 /* Destaca as letras que já foram reveladas. */
+
 .letter-slot.revealed {
+
   color: var(--green);
+
   animation: pop 250ms ease;
+
 }
+
+
 
 /* Animação que faz a letra revelada saltar levemente. */
+
 @keyframes pop {
+
   50% {
+
     transform: translateY(-4px);
+
   }
+
 }
+
+
 
 /* Remove a linha inferior dos espaços entre palavras. */
+
 .letter-slot.space {
+
   width: 16px;
+
   border: 0;
+
 }
+
+
 
 /* Área destinada às mensagens de acerto, erro ou orientação. */
+
 .game-message {
+
   min-height: 18px;
+
   margin: 17px 0 0;
+
   color: var(--ink-soft);
+
   font-size: 11px;
+
 }
+
+
 
 /* Cor das mensagens de erro. */
+
 .game-message.error {
+
   color: var(--red);
+
 }
+
+
 
 /* Cor das mensagens de sucesso. */
+
 .game-message.success {
+
   color: var(--green);
+
 }
 
+
+
 /* ==================================================
+
    12. DICAS E TECLADO
+
    ================================================== */
+
+
 
 /* Centraliza e limita a largura da área de dicas. */
+
 .hint-area {
+
   max-width: 650px;
+
   margin: -7px auto 22px;
+
 }
+
+
 
 /* Estilo do botão usado para revelar uma dica. */
+
 .hint-button {
+
   min-height: 50px;
+
   margin: 0 auto;
+
   padding: 7px 14px 7px 8px;
+
   display: flex;
+
   align-items: center;
+
   gap: 10px;
+
   color: var(--brown);
+
   background: transparent;
+
   border: 1px dashed rgba(161,95,66,.4);
+
   border-radius: 14px;
+
   cursor: pointer;
+
   transition: 180ms;
+
 }
+
+
 
 /* Efeito visual do botão de dica quando está habilitado. */
+
 .hint-button:hover:not(:disabled) {
+
   background: #fff9f4;
+
   border-style: solid;
+
   transform: translateY(-1px);
+
 }
+
+
 
 /* Aparência do botão de dica quando está desabilitado. */
+
 .hint-button:disabled {
+
   cursor: default;
+
   opacity: .55;
+
 }
+
+
 
 /* Caixa que contém o ícone da dica. */
+
 .hint-icon {
+
   flex: 0 0 auto;
+
   width: 35px;
+
   height: 35px;
+
   display: grid;
+
   place-items: center;
+
   color: var(--terracotta);
+
   background: var(--sand-light);
+
   border-radius: 10px;
+
 }
+
+
 
 /* Define o tamanho e o traçado do ícone da dica. */
+
 .hint-icon svg {
+
   width: 19px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 1.8;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Organiza os textos do botão de dica em linhas separadas. */
+
 .hint-button strong,
+
 .hint-button small {
+
   display: block;
+
   text-align: left;
+
 }
+
+
 
 /* Estiliza o título do botão de dica. */
+
 .hint-button strong {
+
   font-size: 10px;
+
 }
+
+
 
 /* Estiliza a descrição do botão de dica. */
+
 .hint-button small {
+
   margin-top: 2px;
+
   color: var(--ink-soft);
+
   font-size: 8px;
+
 }
+
+
 
 /* Cartão que apresenta o conteúdo da dica. */
+
 .hint-card {
+
   padding: 13px 15px;
+
   display: flex;
+
   align-items: center;
+
   gap: 12px;
+
   color: var(--brown);
+
   background: #fff9f4;
+
   border: 1px solid rgba(161,95,66,.25);
+
   border-radius: 15px 15px 15px 5px;
+
   animation: rise 250ms ease both;
+
 }
+
+
 
 /* Estiliza o rótulo da dica. */
+
 .hint-card small {
+
   color: var(--terracotta);
+
   font-size: 8px;
+
   font-weight: 700;
+
   letter-spacing: 1px;
+
   text-transform: uppercase;
+
 }
+
+
 
 /* Estiliza o texto da dica. */
+
 .hint-card p {
+
   margin: 3px 0 0;
+
   font: 600 12px/1.45 "Playfair Display", serif;
+
 }
+
+
 
 /* Organiza as teclas do teclado virtual. */
+
 .keyboard {
+
   max-width: 650px;
+
   margin: 0 auto;
+
   display: flex;
+
   flex-wrap: wrap;
+
   justify-content: center;
+
   gap: 7px;
+
 }
+
+
 
 /* Aparência de cada tecla do teclado virtual. */
+
 .key {
+
   width: 38px;
+
   height: 40px;
+
   padding: 0;
+
   border: 1px solid var(--border);
+
   border-radius: 9px;
+
   color: var(--brown);
+
   background: #f5eee5;
+
   font-weight: 700;
+
   font-size: 12px;
+
   cursor: pointer;
+
   box-shadow: 0 3px 0 #dfd1c0;
+
   transition: 120ms ease;
+
 }
+
+
 
 /* Efeito ao passar o mouse sobre uma tecla disponível. */
+
 .key:hover:not(:disabled) {
+
   background: var(--sand);
+
   transform: translateY(-1px);
+
 }
+
+
 
 /* Efeito ao pressionar uma tecla disponível. */
+
 .key:active:not(:disabled) {
+
   box-shadow: none;
+
   transform: translateY(2px);
+
 }
+
+
 
 /* Aparência geral das teclas que já foram utilizadas. */
+
 .key:disabled {
+
   cursor: default;
+
   box-shadow: none;
+
   color: white;
+
 }
+
+
 
 /* Indica visualmente uma letra correta. */
+
 .key.correct {
+
   background: var(--green);
+
   border-color: var(--green);
+
 }
+
+
 
 /* Indica visualmente uma letra incorreta. */
+
 .key.wrong {
+
   background: var(--red);
+
   border-color: var(--red);
+
 }
 
+
+
 /* ==================================================
+
    13. TENTATIVA DE ADIVINHAR A PALAVRA
+
    ================================================== */
+
+
 
 /* Define o espaço do formulário para tentar adivinhar a palavra inteira. */
+
 .word-guess-form {
+
   max-width: 600px;
+
   margin: 29px auto 0;
+
   padding-top: 22px;
+
   border-top: 1px solid var(--border);
+
 }
+
+
 
 /* Estiliza o rótulo do campo de tentativa. */
+
 .word-guess-form > label {
+
   display: block;
+
   margin-bottom: 8px;
+
   color: var(--ink-soft);
+
   font-size: 10px;
+
   font-weight: 700;
+
   text-transform: uppercase;
+
   letter-spacing: 1px;
+
 }
+
+
 
 /* Alinha o campo e o botão de envio. */
+
 .word-guess-form > div {
+
   display: flex;
+
   gap: 8px;
+
 }
+
+
 
 /* Estilo compartilhado dos campos de texto dos formulários. */
+
 .word-guess-form input,
+
 .field input,
+
 .field textarea {
+
   width: 100%;
+
   border: 1px solid var(--border);
+
   outline: 0;
+
   color: var(--ink);
+
   background: #faf7f2;
+
   border-radius: 12px;
+
   transition: 180ms;
+
 }
+
+
 
 /* Define o tamanho e o espaçamento do campo de tentativa. */
+
 .word-guess-form input {
+
   min-width: 0;
+
   height: 44px;
+
   padding: 0 14px;
+
   font-size: 12px;
+
   text-transform: uppercase;
+
 }
+
+
 
 /* Destaca os campos quando recebem foco. */
+
 .word-guess-form input:focus,
+
 .field input:focus,
+
 .field textarea:focus {
+
   border-color: var(--terracotta);
+
   box-shadow: 0 0 0 3px rgba(161,95,66,.1);
+
   background: white;
+
 }
 
+
+
 /* ==================================================
+
    14. MODAIS E FORMULÁRIOS
+
    ================================================== */
+
+
 
 /* Estilo geral das janelas modais. */
+
 .modal {
+
   width: min(520px, calc(100% - 32px));
+
   max-height: calc(100vh - 32px);
+
   padding: 0;
+
   color: var(--ink);
+
   background: var(--paper);
+
   border: 1px solid var(--border);
+
   border-radius: 24px 24px 24px 8px;
+
   box-shadow: 0 30px 90px rgba(53, 39, 32, .3);
+
   overflow: auto;
+
 }
+
+
 
 /* Fundo escurecido atrás das janelas modais. */
+
 .modal::backdrop {
+
   background: rgba(53, 39, 32, .48);
+
   backdrop-filter: blur(4px);
+
 }
+
+
 
 /* Aplica uma animação quando o modal é aberto. */
+
 .modal[open] {
+
   animation: modal-in 220ms ease both;
+
 }
+
+
 
 /* Animação de entrada das janelas modais. */
+
 @keyframes modal-in {
+
   from {
+
     opacity: 0;
+
     transform: translateY(12px) scale(.98);
+
   }
+
 }
+
+
 
 /* Define o espaçamento interno dos formulários e resultados dos modais. */
+
 .modal form,
+
 .result-content {
+
   padding: 30px;
+
 }
+
+
 
 /* Organiza o título e o botão de fechar do modal. */
+
 .modal-header {
+
   display: flex;
+
   align-items: flex-start;
+
   justify-content: space-between;
+
   margin-bottom: 24px;
+
 }
+
+
 
 /* Organiza os campos dos formulários. */
+
 .field {
+
   display: block;
+
   margin-top: 17px;
+
 }
+
+
 
 /* Estiliza os rótulos dos campos. */
+
 .field > span {
+
   display: block;
+
   margin-bottom: 8px;
+
   font-size: 11px;
+
   font-weight: 700;
+
 }
+
+
 
 /* Ajusta os textos auxiliares dentro dos rótulos. */
+
 .field small {
+
   color: var(--ink-soft);
+
   font-weight: 400;
+
 }
+
+
 
 /* Define altura e espaçamento dos campos de texto. */
+
 .field input {
+
   height: 46px;
+
   padding: 0 13px;
+
 }
+
+
 
 /* Define o espaçamento e o comportamento dos campos de texto maiores. */
+
 .field textarea {
+
   padding: 13px;
+
   resize: vertical;
+
   line-height: 1.55;
+
 }
+
+
 
 /* Estiliza as orientações abaixo dos campos. */
+
 .form-help {
+
   margin: 9px 0 0;
+
   color: var(--ink-soft);
+
   font-size: 10px;
+
 }
+
+
 
 /* Reserva espaço e define a cor das mensagens de erro. */
+
 .form-error {
+
   min-height: 15px;
+
   margin: 8px 0 0;
+
   color: var(--red);
+
   font-size: 11px;
+
 }
+
+
 
 /* Alinha os botões de ação dos formulários à direita. */
+
 .modal-actions {
+
   display: flex;
+
   justify-content: flex-end;
+
   gap: 8px;
+
   margin-top: 20px;
+
 }
 
+
+
 /* ==================================================
+
    15. MODAL DE RESULTADO
+
    ================================================== */
+
+
 
 /* Define o tamanho e o alinhamento do modal de resultado. */
+
 .result-modal {
+
   width: min(500px, calc(100% - 32px));
+
   text-align: center;
+
 }
+
+
 
 /* Cria o selo circular exibido no resultado. */
+
 .result-seal {
+
   width: 70px;
+
   height: 70px;
+
   margin: 0 auto 18px;
+
   display: grid;
+
   place-items: center;
+
   color: white;
+
   background: var(--green);
+
   border-radius: 50% 50% 50% 14px;
+
   box-shadow: 0 10px 25px rgba(82,112,91,.25);
+
 }
+
+
 
 /* Altera o selo quando o jogador perde. */
+
 .result-seal.lost {
+
   background: var(--red);
+
   border-radius: 50% 50% 14px 50%;
+
 }
+
+
 
 /* Define o tamanho e o traçado do ícone de resultado. */
+
 .result-seal svg {
+
   width: 37px;
+
   fill: none;
+
   stroke: currentColor;
+
   stroke-width: 4;
+
   stroke-linecap: round;
+
   stroke-linejoin: round;
+
 }
+
+
 
 /* Gira o ícone quando o resultado é uma derrota. */
+
 .result-seal.lost svg {
+
   transform: rotate(45deg);
+
 }
+
+
 
 /* Estiliza o título do resultado. */
+
 .result-content h2 {
+
   margin-top: 8px;
+
   font-size: 32px;
+
 }
+
+
 
 /* Estiliza os parágrafos de descrição do resultado. */
+
 .result-content > p:not(.overline) {
+
   margin: 13px 0 4px;
+
   color: var(--ink-soft);
+
   font-size: 13px;
+
 }
+
+
 
 /* Destaca a palavra que deveria ser adivinhada. */
+
 .result-word {
+
   display: block;
+
   color: var(--terracotta);
+
   font: 600 27px "Playfair Display", serif;
+
   text-transform: uppercase;
+
   letter-spacing: 2px;
+
 }
+
+
 
 /* Organiza as estatísticas finais em três colunas. */
+
 .result-stats {
+
   margin: 25px 0;
+
   padding: 17px 0;
+
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   background: var(--sand-light);
+
   border-radius: 14px;
+
 }
+
+
 
 /* Adiciona divisórias entre as estatísticas. */
+
 .result-stats div + div {
+
   border-left: 1px solid var(--border);
+
 }
+
+
 
 /* Coloca os rótulos e valores das estatísticas em linhas separadas. */
+
 .result-stats small,
+
 .result-stats strong {
+
   display: block;
+
 }
+
+
 
 /* Estiliza os rótulos das estatísticas finais. */
+
 .result-stats small {
+
   color: var(--ink-soft);
+
   font-size: 9px;
+
   text-transform: uppercase;
+
   letter-spacing: 1px;
+
 }
+
+
 
 /* Estiliza os valores das estatísticas finais. */
+
 .result-stats strong {
+
   margin-top: 5px;
+
   font: 600 18px "Playfair Display", serif;
+
 }
+
+
 
 /* Centraliza os botões de ação do resultado. */
+
 .result-actions {
+
   display: flex;
+
   justify-content: center;
+
   gap: 8px;
+
 }
 
+
+
 /* ==================================================
+
    16. NOTIFICAÇÕES
+
    ================================================== */
+
+
 
 /* Estilo e posicionamento da notificação temporária. */
+
 .toast {
+
   position: fixed;
+
   z-index: 200;
+
   left: 50%;
+
   bottom: 22px;
+
   padding: 12px 18px;
+
   color: white;
+
   background: var(--brown-dark);
+
   border-radius: 10px;
+
   box-shadow: var(--shadow);
+
   font-size: 12px;
+
   opacity: 0;
+
   pointer-events: none;
+
   transform: translate(-50%, 12px);
+
   transition: 200ms;
+
 }
+
+
 
 /* Torna a notificação visível e a posiciona na tela. */
+
 .toast.show {
+
   opacity: 1;
+
   transform: translate(-50%, 0);
+
 }
 
+
+
 /* ==================================================
+
    17. BARRA DE ROLAGEM E FOCO
+
    ================================================== */
+
+
 
 /* Define a largura e a altura da barra de rolagem. */
+
 ::-webkit-scrollbar {
+
   width: 6px;
+
   height: 6px;
+
 }
+
+
 
 /* Estiliza a parte móvel da barra de rolagem. */
+
 ::-webkit-scrollbar-thumb {
+
   background: #d6c5b4;
+
   border-radius: 10px;
+
 }
+
+
 
 /* Cria um contorno visível para elementos selecionados pelo teclado. */
+
 *:focus-visible {
+
   outline: 2px solid var(--terracotta);
+
   outline-offset: 2px;
+
 }
 
+
+
 /* ==================================================
+
    18. RESPONSIVIDADE
+
    Ajusta o layout para diferentes tamanhos de tela.
+
    ================================================== */
+
+
 
 /* Regras para telas com largura máxima de 1000px,
+
    como tablets e notebooks menores. */
+
 @media (max-width: 1000px) {
 
+
+
   /* Coloca a apresentação em uma única coluna. */
+
   .hero {
+
     grid-template-columns: 1fr;
+
     gap: 25px;
+
   }
+
+
 
   /* Limita a largura do cartão de estatísticas. */
+
   .stats-card {
+
     max-width: 500px;
+
   }
+
+
 
   /* Coloca a configuração em uma única coluna. */
+
   .setup-layout {
+
     grid-template-columns: 1fr;
+
   }
+
+
 
   /* Organiza os painéis laterais em duas colunas. */
+
   .setup-sidebar {
+
     grid-template-columns: 1fr 1fr;
+
   }
 
+
+
   /* Reduz a largura da coluna da forca. */
+
   .game-layout {
+
     grid-template-columns: 245px 1fr;
+
   }
+
+
 
   /* Reduz o espaçamento interno do cartão da forca. */
+
   .gallows-card {
+
     padding: 20px;
+
   }
+
+
 
   /* Reduz o espaçamento interno do tabuleiro. */
+
   .game-board {
+
     padding: 25px;
+
   }
+
+
 
   /* Exibe os cartões de recordes em duas colunas. */
+
   .record-grid {
+
     grid-template-columns: repeat(2, 1fr);
+
   }
+
 }
+
+
 
 /* Regras para telas com largura máxima de 760px,
+
    como tablets pequenos e celulares. */
+
 @media (max-width: 760px) {
 
+
+
   /* Reduz a largura do cabeçalho e do conteúdo principal. */
+
   .site-header,
+
   main {
+
     width: min(100% - 28px, 680px);
+
   }
+
+
 
   /* Reduz a altura do cabeçalho. */
+
   .site-header {
+
     height: 74px;
+
   }
+
+
 
   /* Reduz o espaço acima do conteúdo principal. */
+
   main {
+
     padding-top: 36px;
+
   }
+
+
 
   /* Transforma botões pequenos em botões compactos com ícone. */
+
   .button-small {
+
     width: 42px;
+
     padding: 0;
+
     font-size: 0;
+
   }
+
+
 
   /* Mantém o ícone visível nos botões compactos. */
+
   .button-small svg {
+
     width: 19px;
+
   }
+
+
 
   /* Compacta a navegação dos recordes para telas menores. */
+
   .records-nav {
+
     width: 42px;
+
     padding: 0;
+
     font-size: 0;
+
   }
+
+
 
   /* Mantém o ícone da navegação visível. */
+
   .records-nav svg {
+
     width: 19px;
+
   }
+
+
 
   /* Reduz o espaço inferior da apresentação. */
+
   .hero {
+
     margin-bottom: 28px;
+
   }
+
+
 
   /* Ajusta o tamanho do título para celulares. */
+
   h1 {
+
     font-size: clamp(39px, 12vw, 55px);
+
     letter-spacing: -1.8px;
+
   }
+
+
 
   /* Reduz o tamanho do texto descritivo. */
+
   .hero-description {
+
     font-size: 14px;
+
   }
+
+
 
   /* Coloca os painéis laterais em uma coluna. */
+
   .setup-sidebar {
+
     grid-template-columns: 1fr;
+
   }
+
+
 
   /* Reduz o espaçamento interno dos painéis. */
+
   .category-panel,
+
   .word-preview,
+
   .play-panel {
+
     padding: 20px;
+
   }
+
+
 
   /* Exibe as categorias em duas colunas. */
+
   .category-grid {
+
     grid-template-columns: repeat(2, 1fr);
+
     max-height: 380px;
+
   }
+
+
 
   /* Reorganiza o cabeçalho da partida em duas colunas. */
+
   .game-topbar {
+
     grid-template-columns: 1fr 1fr;
+
     gap: 12px;
+
   }
+
+
 
   /* Move as etiquetas da partida para uma linha própria. */
+
   .game-chips {
+
     grid-row: 2;
+
     grid-column: 1 / -1;
+
     justify-content: center;
+
   }
+
+
 
   /* Coloca a forca acima do tabuleiro. */
+
   .game-layout {
+
     grid-template-columns: 1fr;
+
   }
+
+
 
   /* Organiza o cartão da forca em duas colunas. */
+
   .gallows-card {
+
     display: grid;
+
     grid-template-columns: 1fr 150px;
+
     align-items: center;
+
   }
+
+
 
   /* Reduz a altura do espaço reservado para a forca. */
+
   .gallows {
+
     height: 180px;
+
   }
+
+
 
   /* Faz os indicadores de tentativas ocuparem toda a largura. */
+
   .mistake-dots {
+
     grid-column: 1 / -1;
+
   }
+
+
 
   /* Ajusta o espaçamento do tabuleiro para celulares. */
+
   .game-board {
+
     padding: 20px 14px 24px;
+
   }
+
+
 
   /* Reduz o tamanho das teclas virtuais. */
+
   .key {
+
     width: 34px;
+
     height: 38px;
+
   }
+
+
 
   /* Ajusta o alinhamento do cabeçalho dos recordes. */
+
   .records-heading {
+
     min-height: auto;
+
     align-items: flex-end;
+
   }
+
+
 
   /* Reduz o tamanho do símbolo dos recordes. */
+
   .record-emblem {
+
     width: 110px;
+
     height: 110px;
+
   }
+
+
 
   /* Reduz o tamanho do ícone dos recordes. */
+
   .record-emblem svg {
+
     width: 58px;
+
   }
+
+
 
   /* Esconde os nomes das colunas do histórico. */
+
   .history-labels {
+
     display: none;
+
   }
+
+
 
   /* Reorganiza as linhas do histórico em duas colunas. */
+
   .history-row {
+
     grid-template-columns: 1fr auto;
+
   }
+
+
 
   /* Esconde as datas para economizar espaço. */
+
   .history-date {
+
     display: none;
+
   }
+
+
 
   /* Posiciona a pontuação na segunda coluna. */
+
   .history-score {
+
     grid-column: 2;
+
     grid-row: 1;
+
   }
+
+
 
   /* Posiciona a dificuldade abaixo da identificação da partida. */
+
   .history-difficulty {
+
     grid-column: 1;
+
     margin-left: 42px;
+
   }
+
 }
+
+
 
 /* Regras para celulares com largura máxima de 430px. */
+
 @media (max-width: 430px) {
 
+
+
   /* Reduz o tamanho do nome da marca. */
+
   .brand strong {
+
     font-size: 20px;
+
   }
+
+
 
   /* Reduz o símbolo da marca. */
+
   .brand-mark {
+
     width: 41px;
+
     height: 41px;
+
   }
+
+
 
   /* Reduz o espaçamento interno do cartão de estatísticas. */
+
   .stats-card {
+
     padding: 20px;
+
   }
+
+
 
   /* Reduz o espaço entre as estatísticas. */
+
   .stats-grid div {
+
     padding: 0 9px;
+
   }
+
+
 
   /* Reduz o tamanho dos números das estatísticas. */
+
   .stats-grid strong {
+
     font-size: 22px;
+
   }
+
+
 
   /* Mantém as categorias organizadas em duas colunas. */
+
   .category-grid {
+
     grid-template-columns: 1fr 1fr;
+
   }
+
+
 
   /* Compacta os cartões de categoria. */
+
   .category-card {
+
     padding: 10px;
+
     min-height: 68px;
+
   }
+
+
 
   /* Reduz o símbolo de cada categoria. */
+
   .category-symbol {
+
     width: 32px;
+
     height: 32px;
+
   }
+
+
 
   /* Reduz a largura da coluna da forca. */
+
   .gallows-card {
+
     grid-template-columns: 1fr 120px;
+
   }
+
+
 
   /* Centraliza os indicadores da partida. */
+
   .game-metrics {
+
     justify-content: center;
+
   }
+
+
 
   /* Reduz a altura e o espaçamento da área da palavra. */
+
   .word-area {
+
     min-height: 170px;
+
     padding-top: 28px;
+
   }
+
+
 
   /* Reduz o espaço entre as letras da palavra. */
+
   .masked-word {
+
     gap: 5px;
+
   }
+
+
 
   /* Ajusta a largura das letras em celulares pequenos. */
+
   .letter-slot {
+
     width: 24px;
+
   }
+
+
 
   /* Reduz o espaço entre as teclas virtuais. */
+
   .keyboard {
+
     gap: 5px;
+
   }
+
+
 
   /* Reduz ainda mais o tamanho das teclas. */
+
   .key {
+
     width: 31px;
+
     height: 36px;
+
   }
+
+
 
   /* Coloca o campo e o botão de tentativa em coluna. */
+
   .word-guess-form > div {
+
     flex-direction: column;
+
   }
+
+
 
   /* Faz o botão de tentativa ocupar toda a largura. */
+
   .word-guess-form .button {
+
     width: 100%;
+
   }
+
+
 
   /* Coloca os botões do resultado um abaixo do outro. */
+
   .result-actions {
+
     flex-direction: column;
+
   }
+
+
 
   /* Reorganiza o cabeçalho dos recordes verticalmente. */
+
   .records-heading {
+
     display: block;
+
   }
+
+
 
   /* Esconde o símbolo decorativo dos recordes. */
+
   .record-emblem {
+
     display: none;
+
   }
+
+
 
   /* Mantém os cartões de recordes em duas colunas. */
+
   .record-grid {
+
     grid-template-columns: 1fr 1fr;
+
     gap: 9px;
+
   }
+
+
 
   /* Reduz o tamanho dos cartões de recordes. */
+
   .record-card {
+
     min-height: 176px;
+
     padding: 17px;
+
   }
+
+
 
   /* Reduz o tamanho dos números nos cartões. */
+
   .record-card > strong {
+
     font-size: 27px;
+
   }
+
+
 
   /* Reduz o espaçamento do painel do histórico. */
+
   .history-panel {
+
     padding: 19px 12px;
+
   }
+
+
 
   /* Ajusta o espaçamento do cabeçalho do histórico. */
+
   .history-heading {
+
     padding: 0 5px;
+
   }
+
 }
 
+
+
 /* ==================================================
+
    19. ACESSIBILIDADE: MOVIMENTO REDUZIDO
+
    ================================================== */
 
+
+
 /* Respeita a preferência do usuário que optou por reduzir animações.
+
    As transições e animações ficam praticamente instantâneas. */
+
 @media (prefers-reduced-motion: reduce) {
 
+
+
   /* Reduz movimentos e animações em todos os elementos. */
+
   *,
+
   *::before,
+
   *::after {
+
     scroll-behavior: auto !important;
+
     animation-duration: .01ms !important;
+
     transition-duration: .01ms !important;
+
+  }
+
+}
+
+/* ================================================== */
+/*  NOVO: TELA DE LOGIN E CADASTRO                    */
+/* ================================================== */
+
+/* Centraliza a tela de autenticação enquanto o jogo permanece escondido. */
+.login-screen {
+  min-height: 100vh; /* Ocupa pelo menos a altura inteira da janela. */
+  display: grid; /* Usa grade para centralizar o cartão. */
+  place-items: center; /* Centraliza o cartão horizontal e verticalmente. */
+  padding: 28px 20px; /* Mantém espaço nas bordas em telas pequenas. */
+  background: var(--cream); /* Reutiliza o fundo original do projeto. */
+}
+
+/* Esconde o cabeçalho e o conteúdo até que o jogador entre na conta. */
+body.logged-out .site-header,
+body.logged-out main {
+  display: none; /* Impede o acesso visual ao jogo antes do login. */
+}
+
+/* Oculta a tela de login depois de autenticar o jogador. */
+body:not(.logged-out) .login-screen {
+  display: none; /* Libera a interface original após o login. */
+}
+
+/* Cartão principal da autenticação, seguindo o estilo dos painéis existentes. */
+.login-card {
+  width: min(100%, 500px); /* Limita a largura sem estourar a tela. */
+  padding: clamp(26px, 5vw, 44px); /* Ajusta o espaçamento ao tamanho da tela. */
+  background: var(--paper); /* Usa o mesmo tom claro dos painéis. */
+  border: 1px solid var(--border); /* Mantém a borda sutil do tema. */
+  border-radius: 24px 24px 24px 8px; /* Reaproveita o formato dos cartões originais. */
+  box-shadow: var(--shadow); /* Aplica a sombra já definida no projeto. */
+}
+
+/* Ajusta o título da tela de autenticação sem modificar os títulos do jogo. */
+.login-card h1 {
+  margin-top: 16px; /* Cria espaço entre o pequeno texto e o título. */
+  font-size: clamp(38px, 7vw, 54px); /* Adapta o título a telas menores. */
+}
+
+/* Organiza os campos do login em uma coluna. */
+.auth-form {
+  display: grid; /* Empilha rótulos, campos e botões. */
+  gap: 11px; /* Mantém um espaçamento uniforme entre os elementos. */
+  margin-top: 25px; /* Separa o formulário do texto de apresentação. */
+}
+
+/* Dá destaque aos rótulos dos campos de autenticação. */
+.auth-form label {
+  color: var(--ink-soft); /* Usa a cor secundária do tema. */
+  font-size: 12px; /* Mantém os rótulos discretos. */
+  font-weight: 700; /* Facilita identificar cada campo. */
+}
+
+/* Aplica aos campos o mesmo acabamento dos campos de pesquisa existentes. */
+.auth-form input {
+  width: 100%; /* Faz o campo ocupar a largura do cartão. */
+  min-height: 46px; /* Mantém uma área confortável para digitação. */
+  padding: 0 14px; /* Adiciona espaço interno ao texto. */
+  color: var(--ink); /* Usa a cor principal do texto. */
+  background: #faf7f2; /* Reutiliza o fundo dos campos existentes. */
+  border: 1px solid var(--border); /* Mantém a borda do tema. */
+  border-radius: 13px; /* Reutiliza o arredondamento original. */
+  outline: none; /* Remove o contorno padrão para usar o foco personalizado. */
+}
+
+/* Destaca o campo ativo para ajudar o jogador a acompanhar a digitação. */
+.auth-form input:focus {
+  background: white; /* Clareia o campo que está em uso. */
+  border-color: var(--terracotta); /* Usa a cor de destaque original. */
+  box-shadow: 0 0 0 3px rgba(161, 95, 66, .1); /* Exibe um halo sutil de foco. */
+}
+
+/* Reserva espaço para mensagens sem fazer o cartão saltar de tamanho. */
+.auth-message {
+  min-height: 18px; /* Evita mudanças grandes no layout ao exibir mensagens. */
+  margin: 2px 0; /* Mantém o texto alinhado ao formulário. */
+  color: var(--red); /* Usa a cor de erro já definida. */
+  font-size: 12px; /* Mantém a mensagem compacta. */
+}
+
+/* Estiliza o botão que alterna entre login e cadastro. */
+.auth-toggle {
+  padding: 8px 0; /* Facilita clicar sem deixar o botão grande visualmente. */
+  color: var(--terracotta); /* Mantém o destaque na cor original. */
+  background: transparent; /* Não cria um novo bloco colorido. */
+  border: 0; /* Remove a borda padrão do botão. */
+  cursor: pointer; /* Indica que o texto é interativo. */
+  font-size: 12px; /* Mantém o botão secundário discreto. */
+}
+
+/* Explica onde os dados da conta são guardados. */
+.auth-note {
+  display: block; /* Coloca o aviso em uma linha própria. */
+  margin-top: 18px; /* Separa o aviso do formulário. */
+  color: var(--ink-soft); /* Usa a cor secundária do projeto. */
+  font-size: 11px; /* Mantém o aviso visualmente discreto. */
+  line-height: 1.6; /* Melhora a leitura em telas estreitas. */
+}
+
+/* Identifica a conta ativa no cabeçalho sem alterar os botões existentes. */
+.active-user {
+  align-self: center; /* Alinha o nome verticalmente aos botões. */
+  color: var(--ink-soft); /* Usa a cor secundária do tema. */
+  font-size: 12px; /* Mantém o nome compacto. */
+  font-weight: 700; /* Diferencia o nome do restante do cabeçalho. */
+}
+
+/* Reduz o espaçamento do cabeçalho quando os novos controles estão visíveis. */
+@media (max-width: 650px) {
+  .active-user {
+    display: none; /* Evita que o nome ocupe espaço demais em celulares. */
+  }
+
+  .login-card {
+    padding: 25px 22px; /* Mantém o cartão confortável em telas pequenas. */
   }
 }
